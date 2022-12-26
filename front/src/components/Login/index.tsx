@@ -11,10 +11,10 @@ import {
 import { AiFillEye, AiFillEyeInvisible, AiOutlineUser } from "react-icons/ai";
 
 import { BiLockAlt } from "react-icons/bi";
-import { register } from "../../core";
+import { login } from "../../core";
 import styles from "./styles.module.scss";
 
-const Register = () => {
+const Login = () => {
   const [email, setEamil] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setshowAlert] = useState(false);
@@ -22,22 +22,20 @@ const Register = () => {
 
   const [error, setError] = useState<any>();
 
-  const handelRegister = async () => {
+  const handelLogin = async () => {
     const datas = {
       email: email,
       password: password,
     };
 
-    setError(await register(datas));
-
-    console.log(datas);
+    setError(await login(datas));
 
     setshowAlert(true);
   };
   console.log(error);
 
-  function goLogin() {
-    window.location.href = "/";
+  function goRegister() {
+    window.location.href = "/register";
   }
 
   function handleChangeEmail(event: any) {
@@ -80,7 +78,7 @@ const Register = () => {
                       style={{ color: "#0d6efd" }}
                       className="empty-details"
                     >
-                      S'enregitrer
+                      Se connecter
                     </span>
 
                     <Form style={{ textAlign: "left" }}>
@@ -145,10 +143,10 @@ const Register = () => {
                       </Form.Group>
                     </Form>
                     <span className="h4 empty-heading mt-3">
-                      <Button onClick={handelRegister}>s'enregistrer</Button>
+                      <Button onClick={handelLogin}>s'enregistrer</Button>
                     </span>
-                    <span onClick={goLogin} className={styles.ForgotPassword}>
-                      deja un compte ? se connecter
+                    <span onClick={goRegister} className={styles.ForgotPassword}>
+                      pas de compte ? s'enregistrer
                     </span>
                   </div>
                 </div>
@@ -161,4 +159,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

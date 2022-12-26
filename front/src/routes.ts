@@ -1,4 +1,5 @@
 import { ComponentType } from 'react';
+import Login from './components/Login';
 import withPageTitle from './components/PageTitles';
 import Register from './components/Register';
 
@@ -14,13 +15,19 @@ export interface RouteType {
 
 export const routeNames = {
     register: '/register',
+    login: '/',
+
 };
 
 const routes: Array<RouteType> = [
     {
         path: routeNames.register,
-        title: 'Home',
+        title: 'Register',
         component: Register
+    }, {
+        path: routeNames.login,
+        title: 'Login',
+        component: Login
     }
 ];
 

@@ -37,24 +37,40 @@ const getData = async (url: any, method?: any) => {
   return json;
 };
 
-
-
 const register = async (data: any, redirection?: any) => {
-    const LOGIN_ENDPOINT = `${SERVER_URL}/auth/register`;
-    try {
-      const method = "POST";
-      const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
-      if (data_JSON.success === true) {
-        localStorage.setItem("access_token", data_JSON.token);
-        window.location.href = "/home";
-        return data_JSON;
-      } else if (data_JSON.success === "false") {
-        return data_JSON;
-      }
-    } catch (e) {
-      console.log(e);
-      return { success: false, message: "probleme pour joindre l'api" };
+  const LOGIN_ENDPOINT = `${SERVER_URL}/auth/register`;
+  try {
+    const method = "POST";
+    const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
+    if (data_JSON.success === true) {
+      localStorage.setItem("access_token", data_JSON.token);
+      window.location.href = "/home";
+      return data_JSON;
+    } else if (data_JSON.success === "false") {
+      return data_JSON;
     }
-  };
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
 
-export {register};
+const login = async (data: any, redirection?: any) => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/auth/login`;
+  try {
+    const method = "POST";
+    const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
+    if (data_JSON.success === true) {
+      localStorage.setItem("access_token", data_JSON.token);
+      window.location.href = "/home";
+      return data_JSON;
+    } else if (data_JSON.success === "false") {
+      return data_JSON;
+    }
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+export { register, login };
