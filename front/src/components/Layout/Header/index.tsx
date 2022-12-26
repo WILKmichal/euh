@@ -2,8 +2,7 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import routes from "../../../routes";
 
-import {ReactComponent as FishLogo}  from '../../../assets/img/fishsvg.svg';
-
+import { ReactComponent as FishLogo } from "../../../assets/img/fishsvg.svg";
 
 import "./index.css";
 
@@ -13,7 +12,9 @@ const Header: React.FC = () => {
       {localStorage.getItem("access_token") !== null ? (
         <Navbar style={{ background: "#fff" }} collapseOnSelect expand="lg">
           <Container>
-            <Navbar.Brand href="/home"><FishLogo /></Navbar.Brand>
+            <Navbar.Brand href="/home">
+              <FishLogo />
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse
               id="responsive-navbar-nav"
@@ -28,7 +29,7 @@ const Header: React.FC = () => {
                   ""
                 )
               )}
-
+              <div></div>
               <Nav.Link>déconnexion</Nav.Link>
             </Navbar.Collapse>
           </Container>
@@ -36,7 +37,9 @@ const Header: React.FC = () => {
       ) : (
         <Navbar style={{ background: "#fff" }}>
           <Container>
-          <Navbar.Brand href="/"><FishLogo /></Navbar.Brand>
+            <Navbar.Brand href="/">
+              <FishLogo />
+            </Navbar.Brand>
           </Container>
         </Navbar>
       )}
