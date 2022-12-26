@@ -9,6 +9,7 @@ export interface RouteType {
     title: string;
     authenticatedRoute?: boolean;
     component: ComponentType;
+    connect: boolean
 }
 
 
@@ -23,11 +24,13 @@ const routes: Array<RouteType> = [
     {
         path: routeNames.register,
         title: 'Register',
-        component: Register
+        component: Register,
+        connect: false
     }, {
         path: routeNames.login,
         title: 'Login',
-        component: Login
+        component: Login,
+        connect: false
     }
 ];
 
