@@ -2,6 +2,11 @@
 
 Cette application de suivi alimentaire utilise les données d'Open Food Facts pour fournir des informations sur les produits alimentaires et aider les utilisateurs à atteindre leurs objectifs de santé.
 
+## prerequis
+
+### node.js
+Pour pouvoir utiliser notre application, vous devez avoir la version 18.9.0 de Node.js installée sur votre ordinateur. Node.js est utilisé pour exécuter notre code JavaScript côté serveur et est nécessaire pour que notre application fonctionne correctement. Si vous ne disposez pas déjà de cette version de Node.js, vous pouvez la télécharger et l'installer à partir du site Web officiel de Node.js (https://nodejs.org/). Une fois que vous avez installé Node.js, vous devriez être en mesure de lancer notre application en suivant les instructions fournies dans le reste de ce README.
+
 ## TECHOLOGIE
 Notre application utilise un certain nombre de technologies différentes pour fonctionner. Nous avons choisi d'utiliser React pour le front-end, ce qui nous permet de créer des interfaces utilisateur réactives et dynamiques. Pour le back-end, nous avons utilisé Django, un framework de développement Web basé sur Python qui offre une puissance et une flexibilité pour la gestion de données et la logique métier. En outre, nous avons choisi d'utiliser MongoDB comme base de données pour stocker les données de l'application. Enfin, nous avons intégré l'API d'Open Food Facts dans notre application pour fournir des informations sur les produits alimentaires aux utilisateurs.
 
