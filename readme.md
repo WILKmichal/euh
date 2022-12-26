@@ -9,8 +9,8 @@ Pour pouvoir utiliser notre application, vous devez avoir la version 18.9.0 de N
 
 ### python
 Pour pouvoir utiliser notre application, vous devez avoir les éléments suivants installés sur votre ordinateur :
-Python 3.6 ou une version ultérieure
-pip v22.3.1 ou une version ultérieure
+- Python 3.6 ou une version ultérieure
+- pip v22.3.1 ou une version ultérieure
 
 ## TECHOLOGIE
 Notre application utilise un certain nombre de technologies différentes pour fonctionner. Nous avons choisi d'utiliser React pour le front-end, ce qui nous permet de créer des interfaces utilisateur réactives et dynamiques. Pour le back-end, nous avons utilisé Django, un framework de développement Web basé sur Python qui offre une puissance et une flexibilité pour la gestion de données et la logique métier. En outre, nous avons choisi d'utiliser MongoDB comme base de données pour stocker les données de l'application. Enfin, nous avons intégré l'API d'Open Food Facts dans notre application pour fournir des informations sur les produits alimentaires aux utilisateurs.
