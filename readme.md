@@ -14,3 +14,12 @@ installé les dépendances de votre application en exécutant la commande ```npm
 Exécutez la commande npm start ou yarn start pour lancer l'application.
 
 Une fois que vous avez exécuté ces commandes, votre application React devrait être lancée et accessible à l'adresse http://localhost:3000 dans votre navigateur. Si vous avez configuré votre application pour utiliser un port différent, vous devrez accéder à l'application à l'adresse appropriée.
+
+
+### LANCER LE BACKEND
+
+Ouvrez un terminal et naviguez jusqu'au répertoire de notre application Django ```./back```.
+installé les dépendances de l'application en exécutant la commande ```pip install -r requirements.txt``` . Cette commande installera toutes les bibliothèques Python nécessaires pour votre application.
+Exécutez la commande ```python manage.py migrate``` pour appliquer toutes les migrations de base de données nécessaires à votre application.
+Exécutez la commande ```python manage.py runserver``` pour lancer le serveur de développement de Django.
+
