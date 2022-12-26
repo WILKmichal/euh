@@ -3,6 +3,7 @@ import "./App.css";
 import Layout from "./components/Layout";
 import routes from "./routes";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import PageNotFound from "./Page/PageNotFound";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
               element={<route.component />}
             />
           ))}
-          {/* <Route path="*" element={<PageNotFound />} /> */}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Layout>
     </Router>
