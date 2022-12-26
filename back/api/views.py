@@ -27,3 +27,10 @@ def users_list(request):
 
         api_serializer = ApiSerializer(users, many=True)
         return JsonResponse(api_serializer.data, safe=False)
+    elif request.method == 'POST':
+        user_data = JSONParser().parse(request)
+        api_serializer = ApiSerializer(data=user_data)
+        if api_serializer.is_valid():
+            api_serializer.save()
+            return JsonResponse(api_serializer.data, status=status.HTTP_201_CREATED) 
+        return JsonResponse(api_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
