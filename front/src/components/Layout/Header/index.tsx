@@ -22,7 +22,7 @@ const Header: React.FC = () => {
               {routes.map((route: any, index: number) =>
                 route.connect === true ? (
                   <Nav key={"route-key-" + index} className="me-auto">
-                    <Nav.Link href={`${route.path}`}>Home</Nav.Link>
+                    <Nav.Link href={`${route.path}`}>{route.title}</Nav.Link>
                   </Nav>
                 ) : (
                   ""
