@@ -9,7 +9,7 @@ Notre application utilise un certain nombre de technologies différentes pour fo
 
 Voici les étapes pour lancer l'application frontend créee en ```React``` :
 
-Ouvrez un terminal et naviguez jusqu'au répertoire de votre application React ```./front```.
+Ouvrez un terminal et naviguez jusqu'au répertoire de notre application React ```./front```.
 installé les dépendances de votre application en exécutant la commande ```npm install``` ou```yarn install```.
 Exécutez la commande npm start ou yarn start pour lancer l'application.
 
