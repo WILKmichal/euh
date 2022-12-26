@@ -36,7 +36,7 @@ const Header: React.FC = () => {
       ) : (
         <Navbar style={{ background: "#fff" }}>
           <Container>
-            <Navbar.Brand href="/">Euh</Navbar.Brand>
+          <Navbar.Brand href="/"><FishLogo /></Navbar.Brand>
           </Container>
         </Navbar>
       )}
