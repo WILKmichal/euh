@@ -1,3 +1,0 @@
-### enregistrement
-
-En tant qu'utilisateur, je veux pouvoir créer un compte afin de pouvoir accéder à des fonctionnalités et à des données qui me sont réservées. Pour ce faire, je vais aller sur la page d'enregistrement et remplir un formulaire en indiquant mon nom, mon adresse e-mail, et un mot de passe. Si je remplis le formulaire correctement et que mon adresse e-mail n'est pas déjà utilisée par un autre compte, mon compte sera créé et je serai connecté automatiquement. Si le formulaire est incorrectement rempli ou si mon adresse e-mail est déjà utilisée, j'aurai un message d'erreur m'indiquant ce qui s'est passé et je devrai corriger les erreurs ou choisir une adresse e-mail différente avant de pouvoir créer mon compte.

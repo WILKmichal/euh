@@ -1,3 +1,0 @@
-### affichage de produits
-
-En tant qu'utilisateur, je veux pouvoir voir les détails d'un produit afin de prendre une décision d'achat éclairée. Pour ce faire, je vais naviguer sur le site et trouver le produit qui m'intéresse en utilisant la barre de recherche ou en parcourant les catégories. Une fois que j'ai trouvé le produit, je vais cliquer sur sa page de détail. Cela m'emmènera sur une nouvelle page qui affichera toutes les informations importantes sur le produit, comme son nom, sa description, son prix, ses caractéristiques etc. ainsi que ces produits de remplacements, si je suis intéressé pour remplacer ce produit, je peux sauvegarder ce produit . Si je ne suis pas intéressé, je pourrai simplement continuer à naviguer sur le site.

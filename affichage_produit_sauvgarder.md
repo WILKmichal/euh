@@ -1,3 +1,0 @@
-### affichage des produits de remplacement sauvegardés
-
-En tant qu'utilisateur, je veux pouvoir afficher les produits que j'ai enregistrés ou sauvegardés afin de pouvoir facilement y accéder ultérieurement. Pour ce faire, je vais aller dans "Mes produits sauvegardés". Cela m'emmènera sur une nouvelle page qui affichera tous les produits que j'ai enregistrés ou sauvegardés. Je pourrai alors cliquer sur un produit pour accéder à sa page de détail e. Si je ne veux plus enregistrer un produit, je pourrai cliquer sur une option de suppression pour le retirer de ma liste.

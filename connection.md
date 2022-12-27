@@ -1,3 +1,0 @@
-### connection
-
-En tant qu'utilisateur, je veux pouvoir me connecter à mon compte afin de pouvoir accéder à des fonctionnalités personnalisées et à des données qui m'appartiennent. Pour ce faire, je vais aller sur la page de connexion et entrer mon adresse e-mail et mon mot de passe. Si les informations sont correctes, je serai connecté et redirigé vers la page d'accueil ou vers une autre page que j'ai l'habitude de voir lorsque je suis connecté. Si les informations sont incorrectes, j'aurai un message d'erreur m'indiquant que je dois vérifier mes informations de connexion et essayer à nouveau.
