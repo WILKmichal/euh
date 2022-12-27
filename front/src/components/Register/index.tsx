@@ -17,6 +17,8 @@ import styles from "./styles.module.scss";
 const Register = () => {
   const [email, setEamil] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const [showAlert, setshowAlert] = useState(false);
   const [passwordIconEye, setPasswordIconEye] = useState(true);
 
@@ -24,7 +26,8 @@ const Register = () => {
 
   const handelRegister = async () => {
     const datas = {
-      email: email,
+      name: name,
+      mail: email,
       password: password,
     };
 
@@ -46,6 +49,10 @@ const Register = () => {
 
   function handleChangePassword(event: any) {
     setPassword(event.target.value);
+  }
+
+  function handleChangeName(event: any) {
+    setName(event.target.value);
   }
 
   return (
@@ -85,6 +92,29 @@ const Register = () => {
 
                     <Form style={{ textAlign: "left" }}>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label style={{ color: "#0d6efd" }}>
+                          Name
+                        </Form.Label>
+                        <InputGroup className="mb-3">
+                          <InputGroup.Text
+                            id="basic-addon1"
+                            style={{ color: "#0d6efd"}}
+                          >
+                            <AiOutlineUser />
+                          </InputGroup.Text>
+                          <Form.Control
+                            onChange={handleChangeName}
+                            type="text"
+                            placeholder="entrer votre nom"
+                            aria-label="entrer votre nom"
+                            style={{ width: "88%" }}
+                            // aria-describedby="basic-addon1"
+                          />
+                          <Form.Text className="text-muted">
+                            Nous ne partagerons jamais votre nom
+                          </Form.Text>
+                        </InputGroup>
+
                         <Form.Label style={{ color: "#0d6efd" }}>
                           Adresse mail
                         </Form.Label>
