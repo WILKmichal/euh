@@ -42,12 +42,15 @@ const register = async (data: any, redirection?: any) => {
   try {
     const method = "POST";
     const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
+
+    console.log(data_JSON.success);
+
     if (data_JSON.success === true) {
-      localStorage.setItem("access_token", data_JSON.token);
-      window.location.href = "/home";
-      return data_JSON;
-    } else if (data_JSON.success === "false") {
-      return data_JSON;
+      return { success: true, message: "utilisateur créé" };
+    } else if (data_JSON.success === false) {
+      console.log(data_JSON);
+
+      return { success: false, message: "Un de vos champs n'est pas bon" };
     }
   } catch (e) {
     console.log(e);
@@ -61,11 +64,12 @@ const login = async (data: any, redirection?: any) => {
     const method = "POST";
     const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
     if (data_JSON.success === true) {
-      localStorage.setItem("access_token", data_JSON.token);
-      window.location.href = "/home";
-      return data_JSON;
-    } else if (data_JSON.success === "false") {
-      return data_JSON;
+      // localStorage.setItem("access_token", data_JSON.token);
+      // window.location.href = "/home";
+      // return data_JSON;
+      return { success: true, message: "utilisateur créé" };
+    } else if (data_JSON.success === false) {
+      return { success: false, message: "Un de vos champs n'est pas bon" };
     }
   } catch (e) {
     console.log(e);
@@ -74,26 +78,25 @@ const login = async (data: any, redirection?: any) => {
 };
 
 const getCategory = async () => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/categories`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/category`;
   try {
     const data_JSON = await getData(LOGIN_ENDPOINT);
-      return data_JSON;
+    return data_JSON;
   } catch (e) {
     console.log(e);
     return { success: false, message: "probleme pour joindre l'api" };
   }
 };
 
-
-const getFoods = async (data : any) => {
+const getFoods = async (data: any) => {
   const LOGIN_ENDPOINT = `${SERVER_URL}/foods`;
   try {
-    const data_JSON = await postData(LOGIN_ENDPOINT,data);
-      return data_JSON;
+    const data_JSON = await postData(LOGIN_ENDPOINT, data);
+    return data_JSON;
   } catch (e) {
     console.log(e);
     return { success: false, message: "probleme pour joindre l'api" };
   }
 };
 
-export { register, login, getCategory,getFoods };
+export { register, login, getCategory, getFoods };
