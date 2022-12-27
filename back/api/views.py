@@ -4,8 +4,8 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework import status
 
-from api.models import Users
-from api.serializers import UserSerializer
+from api.models import Users, Categories
+from api.serializers import UserSerializer, CategorieSerializer
 from rest_framework.decorators import api_view
 
 
@@ -15,6 +15,17 @@ def user_detail(request, pk):
     if request.method == 'GET':
         api_serializer = UserSerializer(user)
         return JsonResponse(api_serializer.data)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def categories_list(request):
+    if request.method == 'GET':
+        users = Categories.objects.all()
+        title = request.GET.get('mail', None)
+        if title is not None:
+            users = users.filter(title__icontains=title)
+        api_serializer = CategorieSerializer(users, many=True)
+        return JsonResponse(api_serializer.data, safe=False)
 
 
 @api_view(['GET', 'POST', 'DELETE'])
@@ -35,8 +46,8 @@ def users_list(request):
             response_data = {}
             response_data['success'] = True
             response_data['message'] = 'compte crée'
-            return JsonResponse(response_data, status=status.HTTP_201_CREATED) 
-        
+            return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+
         response_data = {}
         response_data['success'] = False
         response_data['message'] = api_serializer.errors
