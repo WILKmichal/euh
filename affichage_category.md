@@ -1,0 +1,3 @@
+### affichage des catégories
+
+En tant qu'utilisateur, je veux pouvoir voir toutes les catégories disponibles sur le site afin de pouvoir naviguer et trouver facilement ce que je cherche. Pour ce faire, je vais aller sur la page d'accueil et cliquer sur l'option de navigation "Catégories" ou "Toutes les catégories". Cela m'emmènera sur une nouvelle page qui affichera toutes les catégories disponibles, organisées sous forme de liste. Je pourrai alors cliquer sur une catégorie pour accéder à tous les aliments qui y sont associés. Si je ne trouve pas la catégorie que je cherche, je pourrai utiliser une barre de recherche pour la trouver.
