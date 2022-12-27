@@ -9,6 +9,7 @@ from api.serializers import UserSerializer, CategorieSerializer
 from rest_framework.decorators import api_view
 
 
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def user_detail(request, pk):
     user = Users.objects.get(pk=pk)
@@ -20,11 +21,11 @@ def user_detail(request, pk):
 @api_view(['GET', 'PUT', 'DELETE'])
 def categories_list(request):
     if request.method == 'GET':
-        users = Categories.objects.all()
+        categories = Categories.objects.all()
         title = request.GET.get('mail', None)
         if title is not None:
-            users = users.filter(title__icontains=title)
-        api_serializer = CategorieSerializer(users, many=True)
+            categories = categories.filter(title__icontains=title)
+        api_serializer = CategorieSerializer(categories, many=True)
         return JsonResponse(api_serializer.data, safe=False)
 
 
