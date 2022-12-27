@@ -20,4 +20,5 @@ for i in tags:
     mydict = {"id_catego": i["id"], "name": i["name"],
               "products": i["products"], "url": i['url'], "sameAs": ''}
     x = mycol.insert_one(mydict)
-    print('done brothers !!!')
+
+print('done brothers !!!')
