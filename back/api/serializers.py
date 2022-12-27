@@ -2,7 +2,7 @@ from rest_framework import serializers
 from api.models import Users, Categories
 
 
-class ApiSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Users
@@ -10,6 +10,11 @@ class ApiSerializer(serializers.ModelSerializer):
                   'name',
                   'mail',
                   'password')
+
+
+class CategorieSerializer(serializers.ModelSerializer):
+
+    class Meta:
         model = Categories
         fields = ('id',
                   'id_catego',

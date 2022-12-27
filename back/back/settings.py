@@ -58,9 +58,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "back.urls"
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8081',
+    'https://4f97-2a02-8440-3240-d85f-f5e3-a20f-519-8a12.ngrok.io'
 )
 
 

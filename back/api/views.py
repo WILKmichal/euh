@@ -5,7 +5,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework import status
 
 from api.models import Users
-from api.serializers import ApiSerializer
+from api.serializers import UserSerializer
 from rest_framework.decorators import api_view
 
 
@@ -13,7 +13,7 @@ from rest_framework.decorators import api_view
 def user_detail(request, pk):
     user = Users.objects.get(pk=pk)
     if request.method == 'GET':
-        api_serializer = ApiSerializer(user)
+        api_serializer = UserSerializer(user)
         return JsonResponse(api_serializer.data)
 
 
@@ -25,11 +25,11 @@ def users_list(request):
         if title is not None:
             users = users.filter(title__icontains=title)
 
-        api_serializer = ApiSerializer(users, many=True)
+        api_serializer = UserSerializer(users, many=True)
         return JsonResponse(api_serializer.data, safe=False)
     elif request.method == 'POST':
         user_data = JSONParser().parse(request)
-        api_serializer = ApiSerializer(data=user_data)
+        api_serializer = UserSerializer(data=user_data)
         if api_serializer.is_valid():
             api_serializer.save()
             return JsonResponse(api_serializer.data, status=status.HTTP_201_CREATED) 
