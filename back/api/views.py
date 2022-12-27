@@ -32,5 +32,12 @@ def users_list(request):
         api_serializer = UserSerializer(data=user_data)
         if api_serializer.is_valid():
             api_serializer.save()
-            return JsonResponse(api_serializer.data, status=status.HTTP_201_CREATED) 
-        return JsonResponse(api_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            response_data = {}
+            response_data['success'] = True
+            response_data['message'] = 'compte crée'
+            return JsonResponse(response_data, status=status.HTTP_201_CREATED) 
+        
+        response_data = {}
+        response_data['success'] = False
+        response_data['message'] = api_serializer.errors
+        return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
