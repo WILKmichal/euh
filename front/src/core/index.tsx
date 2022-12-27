@@ -1,4 +1,4 @@
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = "http://127.0.0.1:8081";
 
 const postData = async (url: any, data?: any, method?: any) => {
   const rep = await fetch(url, {
@@ -38,7 +38,7 @@ const getData = async (url: any, method?: any) => {
 };
 
 const register = async (data: any, redirection?: any) => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/auth/register`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/api/users`;
   try {
     const method = "POST";
     const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
@@ -73,4 +73,27 @@ const login = async (data: any, redirection?: any) => {
   }
 };
 
-export { register, login };
+const getCategory = async () => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/categories`;
+  try {
+    const data_JSON = await getData(LOGIN_ENDPOINT);
+      return data_JSON;
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+
+const getFoods = async (data : any) => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/foods`;
+  try {
+    const data_JSON = await postData(LOGIN_ENDPOINT,data);
+      return data_JSON;
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+export { register, login, getCategory,getFoods };
