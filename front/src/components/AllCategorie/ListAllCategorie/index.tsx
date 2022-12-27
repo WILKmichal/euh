@@ -1,11 +1,15 @@
 import React from "react";
 import { Table } from "react-bootstrap";
+import { FiLink } from "react-icons/fi";
+
 type Props = {
   inputText: String;
   fetchgetCategory: Function;
   Category: any;
 };
 function ListAllCategorie(props: Props) {
+  console.log(props.Category);
+
   const latestProps = React.useRef(props);
   React.useEffect(() => {
     latestProps.current = props;
@@ -28,7 +32,7 @@ function ListAllCategorie(props: Props) {
   //   ];
 
   const goToAliment = (id: number) => {
-    window.location.href = `/food/${id}`;
+    window.location.href = `/foods/${id}`;
   };
 
   //create a new array by filtering the original array
@@ -44,18 +48,27 @@ function ListAllCategorie(props: Props) {
   });
   return (
     <>
-      <Table striped bordered hover>
+      <Table responsive striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
             <th>Name</th>
+            <th>url open food </th>
+            <th>nombre de produit</th>
           </tr>
         </thead>
         <tbody>
           {filteredData.map((item: any) => (
-            <tr>
-              <td>{item.id}</td>
-              <td onClick={() => goToAliment(item.id)}>{item.name}</td>
+            <tr key={item.id_catego}>
+              <td>{item.id_catego}</td>
+              <td onClick={() => goToAliment(item.id_catego)}>{item.name}</td>
+              <td>
+                <a href={item.url}  target="blank">
+                  <FiLink />
+                </a>
+              </td>
+              <td >{item.products}</td>
+
             </tr>
           ))}
         </tbody>

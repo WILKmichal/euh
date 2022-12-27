@@ -1,4 +1,4 @@
-const SERVER_URL = "http://127.0.0.1:8081";
+const SERVER_URL = "http://127.0.0.1:8081/api";
 
 const postData = async (url: any, data?: any, method?: any) => {
   const rep = await fetch(url, {
@@ -38,7 +38,7 @@ const getData = async (url: any, method?: any) => {
 };
 
 const register = async (data: any, redirection?: any) => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/api/users`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/users`;
   try {
     const method = "POST";
     const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
@@ -59,7 +59,7 @@ const register = async (data: any, redirection?: any) => {
 };
 
 const login = async (data: any, redirection?: any) => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/auth/login`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/login`;
   try {
     const method = "POST";
     const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
@@ -78,7 +78,7 @@ const login = async (data: any, redirection?: any) => {
 };
 
 const getCategory = async () => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/category`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/categories`;
   try {
     const data_JSON = await getData(LOGIN_ENDPOINT);
     return data_JSON;
