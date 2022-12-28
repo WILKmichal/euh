@@ -21,7 +21,20 @@ const SubstitutionPage = (props: any) => {
       _keywords: [],
       success: "",
     },
-  });
+  })
+  
+  const [Substitution, setSubstitution] = useState<any>([{
+
+      brands: "",
+      categories_tags: [],
+      code: "",
+      countries: "",
+      image_url: "",
+      ingredients_text: "",
+      stores: "",
+      _keywords: [],
+  }])
+  ;
   const fetchgetFoods = async () => {
     try {
       const data = { code: params.code };
@@ -30,28 +43,40 @@ const SubstitutionPage = (props: any) => {
       if (infoFoods.success === true) {
         // setFoods(infoFoods);
         setProducct(infoFoods);
-        // fetchgetSubstitut(infoFoods)
+        
+        fetchgetSubstitut(infoFoods.product.compared_to_category)
       } else {
-        console.log("non");
+        // console.log("non");
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
   const fetchgetSubstitut = async (category: string) => {
     try {
-      const data = { code: category };
-
+      const data = { category: category };
       const infoFoods = await getFoods(data);
       if (infoFoods.success === true) {
         // setFoods(infoFoods);
         console.log(infoFoods);
-      } else {
-        console.log(infoFoods);
+      }else {
+        const product: any[] = [];
+        for (let index = 0; index < infoFoods.length; index++) {
+          for (let i = 0; i < infoFoods[index].length; i++) {
+            if (
+              infoFoods[index][i].brands !== undefined &&
+              infoFoods[index][i].code !== undefined
+            ) {
+              product.push(infoFoods[index][i]);
+            }
+          }
+        }
+
+        setSubstitution(product);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -63,7 +88,7 @@ const SubstitutionPage = (props: any) => {
             <SelectFood Product={Product} fetchgetFoods={fetchgetFoods} />
           </Col>
           <Col>
-            <SelectSubstitue Product={Product} />
+            <SelectSubstitue Substitution={Substitution} />
           </Col>
         </Row>
       </Container>

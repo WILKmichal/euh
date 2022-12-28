@@ -3,6 +3,7 @@ import {
   Accordion,
   Button,
   Card,
+  Col,
   Container,
   Form,
   ListGroup,
@@ -12,58 +13,76 @@ import {
 import "./index.css";
 
 type Props = {
-  Product: any;
+  Substitution: any;
 };
 
 const SelectSubstitue = (props: Props) => {
-  const latestProps = React.useRef(props);
+  // const goToAliment = (id: string) => {
+  //   window.location.href = `/foods/${id}`;
+  // };
 
-  const goToAliment = (id: string) => {
-    window.location.href = `/foods/${id}`;
+  // const filteredData = props.Substitution.product.map(
+  //   (category: string, index: number) => {
+  //     //if no input the return the original
+  //     return (
+  //       <ListGroup.Item onClick={() => goToAliment(category)}>
+  //         {category}
+  //       </ListGroup.Item>
+  //     );
+  //   }
+  // );
+
+  const gotSubstitution = (id: string) => {
+    window.location.href = `/substitution/${id}`;
   };
 
-  const filteredData = props.Product.product.categories_tags.map(
-    (category: string, index: number) => {
+  const filteredData = props.Substitution.map(
+    (category: any, index: number) => {
       //if no input the return the original
       return (
-        <ListGroup.Item onClick={() => goToAliment(category)}>
-          {category}
-        </ListGroup.Item>
+        <>
+          <Accordion>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>
+                <Form.Check
+                  label={category.brands}
+                  name="group1"
+                  type={"radio"}
+                  id={`inline-${"radio"}-1`}
+                />
+              </Accordion.Header>
+              <Accordion.Body>
+                <Row>
+                  <Col>
+                    <img src={category.image_url} />
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col>{category.ingredients_text}</Col>
+                </Row>
+                <Row>
+                  <Button onClick={() => gotSubstitution(category.code)}>
+                    Details
+                  </Button>
+                </Row>
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
+
+          <br />
+        </>
       );
     }
   );
 
-  const filteredDataKey = props.Product.product._keywords.map(
-    (category: string, index: number) => {
-      //if no input the return the original
-      return (
-        <ListGroup.Item onClick={() => goToAliment(category)}>
-          {category}
-        </ListGroup.Item>
-      );
-    }
-  );
   return (
     <>
       <Container>
         <Row>
           {/* <div className="scroll"> */}
           <Card className="scroll" style={{ width: "100% " }}>
-            <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>
-                  <Form.Check
-                    label="group1"
-                    name="group1"
-                    type={"radio"}
-                    id={`inline-${"radio"}-1`}
-                  />
-                </Accordion.Header>
-                <Accordion.Body>kjjbezkjbfkjzbjfezjzefjkfeb</Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-
-            <br />
+            {filteredData}
           </Card>
           {/* </div> */}
         </Row>
