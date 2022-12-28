@@ -9,6 +9,12 @@ from rest_framework.decorators import api_view
 from api.serializers import UserSerializer, CategorieSerializer
 
 
+
+def getProductsByCode(code):
+        r = requests.get(
+            f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text').json()
+        return r
+
 def getProductsByCategorie(categorie):
     print(categorie)
     FinalArray = []
@@ -28,6 +34,14 @@ def getProductsByCategorie(categorie):
 def products_by_categorie(request, pk):
     if request.method == 'GET':
         result = getProductsByCategorie(pk)
+        return JsonResponse(result, status=status.HTTP_201_CREATED, safe=False)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def products_by_code(request, pk):
+    if request.method == 'GET':
+        result = getProductsByCode(pk)
+        result['success'] = True
         return JsonResponse(result, status=status.HTTP_201_CREATED, safe=False)
 
 
