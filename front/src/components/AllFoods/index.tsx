@@ -35,7 +35,12 @@ const AllFoods = () => {
         const product: any[] = [];
         for (let index = 0; index < infoFoods.length; index++) {
           for (let i = 0; i < infoFoods[index].length; i++) {
-            product.push(infoFoods[index][i]);
+            if (
+              infoFoods[index][i].brands !== undefined &&
+              infoFoods[index][i].code !== undefined
+            ) {
+              product.push(infoFoods[index][i]);
+            }
           }
         }
 

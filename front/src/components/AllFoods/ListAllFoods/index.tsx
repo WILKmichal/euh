@@ -17,23 +17,25 @@ function ListAllCategorie(props: Props) {
   }, []);
 
   console.log(props.Foods);
-  
+
   //create a new array by filtering the original array
   const filteredData = props.Foods.filter((el: any) => {
     //if no input the return the original
     if (props.inputText.trim() === "" || props.inputText.length < 2) {
       return el;
     } else {
-      return (
-        el.brands.toLowerCase().includes(props.inputText) ||
-        el.code.toLowerCase().includes(props.inputText)
-      );
+      if (el.brands !== null || el.brands !== undefined) {
+        return (
+          el.brands.toLowerCase().includes(props.inputText) ||
+          el.code.toLowerCase().includes(props.inputText)
+        );
+      }
     }
   });
 
-  const gotSubstitution = (id : string) => {
+  const gotSubstitution = (id: string) => {
     window.location.href = `/substitution/${id}`;
-  }
+  };
   return (
     <Container>
       <Row xs={1} sm={2} md={4}>
@@ -63,7 +65,9 @@ function ListAllCategorie(props: Props) {
                   <Card.Text>{product.code}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <Button onClick={()=>gotSubstitution(product.code)}>Details</Button>
+                  <Button onClick={() => gotSubstitution(product.code)}>
+                    Details
+                  </Button>
                 </Card.Footer>
               </Card>
               <br />
