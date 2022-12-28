@@ -1,6 +1,7 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import { FiLink } from "react-icons/fi";
+import styles from "./styles.module.scss";
 
 type Props = {
   inputText: String;
@@ -18,18 +19,6 @@ function ListAllCategorie(props: Props) {
   React.useEffect(() => {
     return () => latestProps.current.fetchgetCategory();
   }, []);
-  //   const category: any[] = [
-  //     { id: 1, name: "vegetable" },
-  //     { id: 2, name: "cheese" },
-  //     { id: 3, name: "zefzefezef" },
-  //     { id: 4, name: "manger" },
-  //     { id: 5, name: "boof" },
-  //     { id: 6, name: "grreeeeee" },
-  //     { id: 7, name: "lirezfioerhgiore" },
-  //     { id: 8, name: "oiezhfoiezhgofheziof" },
-  //     { id: 9, name: "vuyev" },
-  //     { id: 10, name: "qsertyujnbgtyu" },
-  //   ];
 
   const goToAliment = (id: number) => {
     window.location.href = `/foods/${id}`;
@@ -48,31 +37,32 @@ function ListAllCategorie(props: Props) {
   });
   return (
     <>
-      <Table responsive striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>url open food </th>
-            <th>nombre de produit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((item: any) => (
-            <tr key={item.id_catego}>
-              <td>{item.id_catego}</td>
-              <td onClick={() => goToAliment(item.id_catego)}>{item.name}</td>
-              <td>
-                <a href={item.url}  target="blank">
-                  <FiLink />
-                </a>
-              </td>
-              <td >{item.products}</td>
-
+      <Container>
+        <Table responsive striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>url open food </th>
+              <th>nombre de produit</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {filteredData.map((item: any) => (
+              <tr key={item.id_catego}>
+                <td>{item.id_catego}</td>
+                <td className={styles.lignetableauLienVersFoods} onClick={() => goToAliment(item.id_catego)}>{item.name}</td>
+                <td>
+                  <a href={item.url} target="blank">
+                    <FiLink />
+                  </a>
+                </td>
+                <td>{item.products}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
     </>
   );
 }
