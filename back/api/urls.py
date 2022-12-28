@@ -6,4 +6,5 @@ urlpatterns = [
     re_path(r'^api/categories$', views.categories_list),
     re_path(r'^api/user/(?P<pk>[0-9]+)$', views.user_detail),
     re_path(r'^api/productByCatego/(?P<pk>.*)$', views.products_by_categorie),
+    re_path(r'^api/productByCode/(?P<pk>.*)$', views.products_by_code),
 ]
