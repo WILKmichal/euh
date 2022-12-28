@@ -99,4 +99,16 @@ const getFoods = async (data: any) => {
   }
 };
 
-export { register, login, getCategory, getFoods };
+
+const getFoodByCode = async (data: any) => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/productByCode/${data.code}`;
+  try {
+    const data_JSON =  await getData(LOGIN_ENDPOINT);
+    return data_JSON;
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+export { register, login, getCategory, getFoods,getFoodByCode };

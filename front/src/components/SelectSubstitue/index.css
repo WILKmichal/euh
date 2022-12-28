@@ -2,7 +2,6 @@
     margin: 0 auto; /* Added */
     float: none; /* Added */
     margin-bottom: 10px; /* Added */
-    background-color: #fff !important; /* Added */
 }
 
 
@@ -11,5 +10,13 @@
     float: none; /* Added */
     margin-bottom: 10px; /* Added */
     margin-top: 10px; /* Added */
+}
+
+
+.scroll{
+    overflow-y: scroll;
+    max-height:500px;
+    background-color: transparent !important;
+    border: none;
 
 }
