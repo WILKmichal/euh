@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import SubstitutionPage from "../../../Page/Substitution";
 type Props = {
   inputText: String;
   fetchgetCategory: Function;
@@ -15,6 +16,8 @@ function ListAllCategorie(props: Props) {
     return () => latestProps.current.fetchgetCategory();
   }, []);
 
+  console.log(props.Foods);
+  
   //create a new array by filtering the original array
   const filteredData = props.Foods.filter((el: any) => {
     //if no input the return the original
@@ -28,6 +31,9 @@ function ListAllCategorie(props: Props) {
     }
   });
 
+  const gotSubstitution = (id : string) => {
+    window.location.href = `/substitution/${id}`;
+  }
   return (
     <Container>
       <Row xs={1} sm={2} md={4}>
@@ -57,7 +63,7 @@ function ListAllCategorie(props: Props) {
                   <Card.Text>{product.code}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <Button>Details</Button>
+                  <Button onClick={()=>gotSubstitution(product.code)}>Details</Button>
                 </Card.Footer>
               </Card>
               <br />
