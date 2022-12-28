@@ -11,9 +11,9 @@ from api.serializers import UserSerializer, CategorieSerializer
 
 
 def getProductsByCode(code):
-        r = requests.get(
-            f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text').json()
-        return r
+    r = requests.get(
+    f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text').json()
+    return r
 
 def getProductsByCategorie(categorie):
     print(categorie)
