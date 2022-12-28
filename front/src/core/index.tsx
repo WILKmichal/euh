@@ -89,9 +89,9 @@ const getCategory = async () => {
 };
 
 const getFoods = async (data: any) => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/foods`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/productByCatego/${data.category}`;
   try {
-    const data_JSON = await postData(LOGIN_ENDPOINT, data);
+    const data_JSON =  await getData(LOGIN_ENDPOINT);
     return data_JSON;
   } catch (e) {
     console.log(e);
