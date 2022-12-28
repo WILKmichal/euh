@@ -34,7 +34,7 @@ function ListAllCategorie(props: Props) {
         {filteredData.map((product: any, index: number) =>
           product !== undefined ? (
             <Col key={product.brands + index}>
-              <Card style={{ width: "100%", height: "180px" }}>
+              <Card style={{ width: "100%", height: "350px" }}>
                 {product.image_url === undefined ||
                 product.image_url === null ||
                 product.image_url === "" ? (
