@@ -1,14 +1,33 @@
-from django.shortcuts import render
-
+import json
+import requests
+from rest_framework import status
+from django.shortcuts import HttpResponse, render
+from api.models import Users, Categories
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
-from rest_framework import status
-
-from api.models import Users
-from api.serializers import UserSerializer
 from rest_framework.decorators import api_view
-import re
-import hashlib
+from api.serializers import UserSerializer, CategorieSerializer
+
+
+def getProductsByCategorie(categorie):
+    FinalArray = []
+    page = 1
+    pagecount = 1
+    while page <= pagecount:
+        print(page)
+        r = requests.get(
+            f'https://world.openfoodfacts.org/?json=true&categories_tags={categorie}&page={page}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text').json()
+        FinalArray.append(r['products'])
+        pagecount = r['page_count']
+        page = page + 1
+    return FinalArray
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def products_by_categorie(request, pk):
+    if request.method == 'GET':
+        result = getProductsByCategorie(pk)
+        return JsonResponse(result, status=status.HTTP_201_CREATED, safe=False)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -17,6 +36,17 @@ def user_detail(request, pk):
     if request.method == 'GET':
         api_serializer = UserSerializer(user)
         return JsonResponse(api_serializer.data)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def categories_list(request):
+    if request.method == 'GET':
+        categories = Categories.objects.all()
+        title = request.GET.get('mail', None)
+        if title is not None:
+            categories = categories.filter(title__icontains=title)
+        api_serializer = CategorieSerializer(categories, many=True)
+        return JsonResponse(api_serializer.data, safe=False)
 
 
 @api_view(['GET', 'POST', 'DELETE'])

@@ -16,10 +16,7 @@ class CategorieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Categories
-        fields = ('id',
-                  'id_catego',
+        fields = ('id_catego',
                   'name',
                   'products',
-                  'url',
-                  'SameAs'
-                  )
+                  'url')

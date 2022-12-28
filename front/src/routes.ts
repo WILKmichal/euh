@@ -1,7 +1,10 @@
 import { ComponentType } from 'react';
 import withPageTitle from './components/PageTitles';
+import CategoriePage from './Page/Categorie';
+import FoodsPage from './Page/Foods';
 import LoginPage from './Page/Login';
 import RegisterPage from './Page/Register';
+import SubstitutionPage from './Page/Substitution';
 
 
 export interface RouteType {
@@ -17,9 +20,13 @@ export interface RouteType {
 export const routeNames = {
     register: '/register',
     login: '/',
+    categorie: '/categorie',
+    foods:'/foods/:id',
+    substitution:'/substitution/:food'
+
 
 };
-
+// 
 const routes: Array<RouteType> = [
     {
         path: routeNames.register,
@@ -31,22 +38,39 @@ const routes: Array<RouteType> = [
         title: 'Login',
         component: LoginPage,
         connect: false
+    }, {
+        path: routeNames.categorie,
+        title: 'Categorie',
+        component: CategoriePage,
+        connect: true
+    }, {
+        path: routeNames.foods,
+        title: 'Categorie',
+        component: FoodsPage,
+        connect: false
+    }, {
+        path: routeNames.substitution,
+        title: 'Substitution',
+        component: SubstitutionPage,
+        connect: false
     }
 ];
 
 
 const mappedRoutes = routes.map((route) => {
     const title = route.title
-        ? `${route.title} • GetPassword`
-        : `GetPassword`;
+        ? `${route.title} • Euh`
+        : `Euh`;
 
-    const requiresAuth = Boolean(route.authenticatedRoute);
+    // const requiresAuth = Boolean(route.authenticatedRoute);
     const wrappedComponent = withPageTitle(title, route.component);
 
     return {
         path: route.path,
         component: wrappedComponent,
-        authenticatedRoute: requiresAuth
+        connect:  route.connect,
+        title: route.title,
+
     };
 });
 
