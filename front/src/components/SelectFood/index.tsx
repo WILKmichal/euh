@@ -11,8 +11,6 @@ type Props = {
 const SelectFood = (props: Props) => {
   const latestProps = React.useRef(props);
 
-  console.log(props.Product.product);
-
   React.useEffect(() => {
     latestProps.current = props;
   });
