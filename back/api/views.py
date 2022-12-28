@@ -10,6 +10,7 @@ from api.serializers import UserSerializer, CategorieSerializer
 
 
 def getProductsByCategorie(categorie):
+    print(categorie)
     FinalArray = []
     page = 1
     pagecount = 1
