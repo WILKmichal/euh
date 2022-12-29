@@ -23,6 +23,9 @@ class Categories(models.Model):
 class Products(models.Model):
     code = models.CharField(
         max_length=70, blank=False, default='', unique=False)
+    
+    brands = models.CharField(
+        max_length=70, blank=False, default='', unique=False)
         
     keywords = models.CharField(max_length=200, blank=False,
                                 default='', unique=False)
@@ -39,6 +42,6 @@ class Products(models.Model):
 
     user_id = models.CharField(
         max_length=200, blank=False, default='', unique=False)
-
-    historique = models.CharField(
+    
+    sub_code = models.CharField(
         max_length=200, blank=False, default='', unique=False)
