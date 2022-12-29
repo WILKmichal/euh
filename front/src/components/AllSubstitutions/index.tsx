@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { getFoods, TestToken } from "../../core";
+import { getFoods, getProduct, TestToken } from "../../core";
 import ListAllAllSubstitutions from "./ListAllAllSubstitutions";
 
 const AllSubstitutions = () => {
@@ -28,23 +28,26 @@ const AllSubstitutions = () => {
     try {
       const data = { category: params.id };
 
-      const infoFoods = await getFoods(data);
+      const infoFoods = await getProduct();
       if (infoFoods.success === true) {
         setFoods(infoFoods);
       } else {
-        const product: any[] = [];
-        for (let index = 0; index < infoFoods.length; index++) {
-          for (let i = 0; i < infoFoods[index].length; i++) {
-            if (
-              infoFoods[index][i].brands !== undefined &&
-              infoFoods[index][i].code !== undefined
-            ) {
-              product.push(infoFoods[index][i]);
-            }
-          }
-        }
 
-        setFoods(product);
+        console.log(infoFoods);
+        
+        // const product: any[] = [];
+        // for (let index = 0; index < infoFoods.length; index++) {
+        //   for (let i = 0; i < infoFoods[index].length; i++) {
+        //     if (
+        //       infoFoods[index][i].brands !== undefined &&
+        //       infoFoods[index][i].code !== undefined
+        //     ) {
+        //       product.push(infoFoods[index][i]);
+        //     }
+        //   }
+        // }
+
+        // setFoods(product);
       }
     } catch (err) {
       console.log(err);
