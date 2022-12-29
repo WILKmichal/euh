@@ -46,6 +46,20 @@ def products_by_categorie(request, pk):
         return JsonResponse(result, status=status.HTTP_201_CREATED, safe=False)
 
 
+@api_view(['GET'])
+@permission_classes([AuthenticatedOnly])
+def products_by_user_id(request):
+    if request.method == 'GET':
+        token = request.META.get('HTTP_AUTHORIZATION')
+        data = jwt.decode(token.split()[1], 'naruto4life')
+        print(data)
+        products = Products.objects.filter(user_id=data['id'])
+        api_serializer = ProductSerializer(products, many=True)
+        return JsonResponse(api_serializer.data,status=status.HTTP_200_OK, safe=False)
+
+
+
+
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([AuthenticatedOnly])
 def products_by_code(request, pk):
