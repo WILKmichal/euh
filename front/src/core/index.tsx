@@ -181,7 +181,26 @@ const getProduct = async () => {
 };
 
 
+const DeleteProduct = async (data: any) => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/deleteProduct/${data}`;
+  try {
+    const method = "DELETE";
+    const data_JSON = await postData(LOGIN_ENDPOINT, data, method);
+    if (data_JSON.success === true) {
+      return { success: true, message: "delete" };
+    } else {
+      return { success: true, message: "delete" };
+    }
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+
+
 export {
+  DeleteProduct,
   register,
   login,
   getCategory,

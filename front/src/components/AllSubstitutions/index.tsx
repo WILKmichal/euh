@@ -1,20 +1,47 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { getFoods, getProduct, TestToken } from "../../core";
+import { DeleteProduct, getFoodByCode, getProduct } from "../../core";
 import ListAllAllSubstitutions from "./ListAllAllSubstitutions";
+import ModalCompared from "./ModalCompared";
 
 const AllSubstitutions = () => {
-  // const [messages, setMessages] = useState<any>([]);
-  // const [input, setInput] = useState("");
-
-  // const handleSubmit = (event: any) => {
-  //   event.preventDefault();
-  //   setMessages([...messages, input]);
-  //   setInput("");
-  // };
-
   const [inputText, setInputText] = useState("");
+  const [show, setShow] = useState(false);
+
+  const [Product, setProduct] = useState<any>({
+    code: "",
+    product: {
+      brands: "",
+      categories_tags: 'e,e,e,e',
+      code: "",
+      countries: "",
+      image_url: "",
+      ingredients_text: "",
+      stores: "",
+      keywords: 'test,test',
+      success: "",
+    },
+    status: 0,
+    status_verbose: "veuillez chercher un produit",
+  });
+
+  const [ProductSub, setProductSub] = useState<any>({
+    code: "",
+    product: {
+      brands: "",
+      categories_tags: [],
+      code: "",
+      countries: "",
+      image_url: "",
+      ingredients_text: "",
+      stores: "",
+      _keywords: [],
+      success: "",
+    },
+    status: 0,
+    status_verbose: "veuillez chercher un produit",
+  });
+
   const [Foods, setFoods] = useState<any>([]);
   let inputHandler = (e: any) => {
     //convert input text to lower case
@@ -22,48 +49,45 @@ const AllSubstitutions = () => {
     setInputText(lowerCase);
   };
 
-  const params = useParams();
-
   const fetchgetFoods = async () => {
     try {
-      const data = { category: params.id };
-
       const infoFoods = await getProduct();
       if (infoFoods.success === true) {
         setFoods(infoFoods);
       } else {
-
-        console.log(infoFoods);
-        
-        // const product: any[] = [];
-        // for (let index = 0; index < infoFoods.length; index++) {
-        //   for (let i = 0; i < infoFoods[index].length; i++) {
-        //     if (
-        //       infoFoods[index][i].brands !== undefined &&
-        //       infoFoods[index][i].code !== undefined
-        //     ) {
-        //       product.push(infoFoods[index][i]);
-        //     }
-        //   }
-        // }
-
-        // setFoods(product);
+        setFoods(infoFoods);
       }
     } catch (err) {
       console.log(err);
     }
   };
 
-  const SupprimerSubstitu = async (code: string) => {
+  const DeleteProductbyCode = async (code: string) => {
+    const infoFoods = await DeleteProduct(code);
+
+    if (infoFoods.success === true) {
+      fetchgetFoods();
+    }
+  };
+
+  const fetchgetFoodbyCode = async (code: string) => {
     try {
-      console.log(code);
+      const data = { code: code };
+      const infoFoods = await getFoodByCode(data);
+      if (infoFoods.success === true) {
+        // setFoods(infoFoods);
+        setProductSub(infoFoods);
+      } else {
+        // console.log("non");
+      }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
   return (
     <>
+      <ModalCompared ProductSub={ProductSub} Product={Product} show={show} setShow={setShow} />
       <Container>
         <Row>
           <Col>
@@ -81,10 +105,13 @@ const AllSubstitutions = () => {
         </Row>
       </Container>
       <ListAllAllSubstitutions
-        SupprimerSubstitu={SupprimerSubstitu}
+        setProduct={setProduct}
+        setShow={setShow}
         Foods={Foods}
         fetchgetCategory={fetchgetFoods}
         inputText={inputText}
+        DeleteProductbyCode={DeleteProductbyCode}
+        fetchgetFoodbyCode={fetchgetFoodbyCode}
       />
     </>
   );

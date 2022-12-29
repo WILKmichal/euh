@@ -1,11 +1,13 @@
 import React from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import SubstitutionPage from "../../../Page/Substitution";
 type Props = {
   inputText: String;
-  SupprimerSubstitu: Function;
   fetchgetCategory: Function;
   Foods: any;
+  DeleteProductbyCode: Function;
+  setShow: Function;
+  fetchgetFoodbyCode: Function;
+  setProduct: Function;
 };
 function ListAllAllSubstitutions(props: Props) {
   const latestProps = React.useRef(props);
@@ -16,8 +18,6 @@ function ListAllAllSubstitutions(props: Props) {
   React.useEffect(() => {
     return () => latestProps.current.fetchgetCategory();
   }, []);
-
-  console.log(props.Foods);
 
   //create a new array by filtering the original array
   const filteredData = props.Foods.filter((el: any) => {
@@ -34,6 +34,12 @@ function ListAllAllSubstitutions(props: Props) {
     }
   });
 
+  const sendFunction = (product: any, sub_code: any) => {
+    props.fetchgetFoodbyCode(sub_code);
+    props.setProduct(product);
+    props.setShow(true);
+  };
+
   const gotSubstitution = (id: string) => {
     window.location.href = `/substitution/${id}`;
   };
@@ -43,12 +49,12 @@ function ListAllAllSubstitutions(props: Props) {
         {filteredData.map((product: any, index: number) =>
           product !== undefined ? (
             <Col key={product.brands + index}>
-              <Card style={{ width: "100%", height: "350px" }}>
+              <Card style={{ width: "100%", height: "400px" }}>
                 {product.image_url === undefined ||
                 product.image_url === null ||
                 product.image_url === "" ? (
                   <Card.Img
-                    style={{ width: "100%", height: "180px" }}
+                    style={{ width: "100%", height: "10px" }}
                     variant="top"
                     src={
                       "https://fr.openfoodfacts.org/images/icons/dist/packaging.svg"
@@ -66,23 +72,25 @@ function ListAllAllSubstitutions(props: Props) {
                   <Card.Text>{product.code}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <Row style={{ textAlign: "center" }}>
-                    <Col>
-                      <Button
-                        variant="outline-primary"
-                        onClick={() => gotSubstitution(product.code)}
-                      >
-                        Details
-                      </Button>
-                    </Col>
-                    <Col>
-                      <Button
-                        variant="outline-danger"
-                        onClick={() => props.SupprimerSubstitu(product.code)}
-                      >
-                        Supprmer
-                      </Button>
-                    </Col>
+                  <Row>
+                    <Button
+                      variant="outline-primary"
+                      onClick={() => gotSubstitution(product.code)}
+                    >
+                      Details
+                    </Button>{" "}
+                    <Button
+                      variant="outline-warning"
+                      onClick={() => sendFunction(product, product.sub_code)}
+                    >
+                      information
+                    </Button>{" "}
+                    <Button
+                      variant="outline-danger"
+                      onClick={() => props.DeleteProductbyCode(product.code)}
+                    >
+                      Supprmer
+                    </Button>
                   </Row>
                 </Card.Footer>
               </Card>
