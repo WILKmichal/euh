@@ -5,6 +5,7 @@ import FoodsPage from './Page/Foods';
 import LoginPage from './Page/Login';
 import Profil from './Page/profil';
 import RegisterPage from './Page/Register';
+import SearchCode from './Page/SearchCode';
 import SubstitutionPage from './Page/Substitution';
 import SubstitutionList from './Page/SubstitutionList';
 
@@ -26,7 +27,8 @@ export const routeNames = {
     foods: '/foods/:id',
     substitution: '/substitution/:code',
     product: '/SubstitutionList',
-    profil: '/profil'
+    profil: '/profil',
+    searchCode : '/searchCode'
 };
 // 
 const routes: Array<RouteType> = [
@@ -64,6 +66,11 @@ const routes: Array<RouteType> = [
         path: routeNames.profil,
         title: 'Profil',
         component: Profil,
+        connect: true
+    },  {
+        path: routeNames.searchCode,
+        title: 'SearchCode',
+        component: SearchCode,
         connect: true
     }
 ];
