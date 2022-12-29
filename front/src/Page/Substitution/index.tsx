@@ -45,8 +45,8 @@ const SubstitutionPage = (props: any) => {
 
   const NewPoduct = async (substitution: string, producsubstitution: any) => {
     const datas = {
-      sub_code: substitution,
-      code: Product.code,
+      sub_code: Product.code,
+      code: substitution,
       brands: producsubstitution.brands,
       keywords: producsubstitution._keywords.toString(),
       categories_tags: producsubstitution.categories_tags.toString(),

@@ -3,10 +3,11 @@ import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import SubstitutionPage from "../../../Page/Substitution";
 type Props = {
   inputText: String;
+  SupprimerSubstitu: Function;
   fetchgetCategory: Function;
   Foods: any;
 };
-function ListAllCategorie(props: Props) {
+function ListAllAllSubstitutions(props: Props) {
   const latestProps = React.useRef(props);
   React.useEffect(() => {
     latestProps.current = props;
@@ -65,9 +66,24 @@ function ListAllCategorie(props: Props) {
                   <Card.Text>{product.code}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <Button variant="outline-primary" onClick={() => gotSubstitution(product.code)}>
-                    Details
-                  </Button>
+                  <Row style={{ textAlign: "center" }}>
+                    <Col>
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => gotSubstitution(product.code)}
+                      >
+                        Details
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => props.SupprimerSubstitu(product.code)}
+                      >
+                        Supprmer
+                      </Button>
+                    </Col>
+                  </Row>
                 </Card.Footer>
               </Card>
               <br />
@@ -81,4 +97,4 @@ function ListAllCategorie(props: Props) {
   );
 }
 
-export default ListAllCategorie;
+export default ListAllAllSubstitutions;
