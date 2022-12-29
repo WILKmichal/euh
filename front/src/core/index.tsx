@@ -113,7 +113,7 @@ const getFoodByCode = async (data: any) => {
 
 
 const PostSubstitu = async (data: any, redirection?: any) => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/login`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/products`;
   try {
     const method = "POST";
     const data_JSON = await postData(LOGIN_ENDPOINT, data, method);
