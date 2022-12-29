@@ -6,6 +6,7 @@ type Props = {
   SupprimerSubstitu: Function;
   fetchgetCategory: Function;
   Foods: any;
+  DeleteProductbyCode:Function;
 };
 function ListAllAllSubstitutions(props: Props) {
   const latestProps = React.useRef(props);
@@ -78,7 +79,7 @@ function ListAllAllSubstitutions(props: Props) {
                     <Col>
                       <Button
                         variant="outline-danger"
-                        onClick={() => props.SupprimerSubstitu(product.code)}
+                        onClick={() => props.DeleteProductbyCode(product.code)}
                       >
                         Supprmer
                       </Button>

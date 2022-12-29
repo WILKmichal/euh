@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { getFoods, getProduct, TestToken } from "../../core";
+import { DeleteProduct, getProduct } from "../../core";
 import ListAllAllSubstitutions from "./ListAllAllSubstitutions";
 
 const AllSubstitutions = () => {
@@ -22,35 +21,25 @@ const AllSubstitutions = () => {
     setInputText(lowerCase);
   };
 
-  const params = useParams();
-
   const fetchgetFoods = async () => {
     try {
-      const data = { category: params.id };
-
       const infoFoods = await getProduct();
       if (infoFoods.success === true) {
         setFoods(infoFoods);
       } else {
-
         console.log(infoFoods);
-        
-        // const product: any[] = [];
-        // for (let index = 0; index < infoFoods.length; index++) {
-        //   for (let i = 0; i < infoFoods[index].length; i++) {
-        //     if (
-        //       infoFoods[index][i].brands !== undefined &&
-        //       infoFoods[index][i].code !== undefined
-        //     ) {
-        //       product.push(infoFoods[index][i]);
-        //     }
-        //   }
-        // }
-
-        // setFoods(product);
+        setFoods(infoFoods);
       }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const DeleteProductbyCode = async (code: string) => {
+    const infoFoods = await DeleteProduct(code);
+
+    if (infoFoods.success === true) {
+      fetchgetFoods();
     }
   };
 
@@ -85,6 +74,7 @@ const AllSubstitutions = () => {
         Foods={Foods}
         fetchgetCategory={fetchgetFoods}
         inputText={inputText}
+        DeleteProductbyCode={DeleteProductbyCode}
       />
     </>
   );

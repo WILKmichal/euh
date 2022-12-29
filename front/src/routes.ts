@@ -25,7 +25,7 @@ export const routeNames = {
     categorie: '/categorie',
     foods: '/foods/:id',
     substitution: '/substitution/:code',
-    SubstitutionList: '/SubstitutionList',
+    product: '/SubstitutionList',
     profil: '/profil'
 };
 // 
@@ -56,8 +56,8 @@ const routes: Array<RouteType> = [
         component: SubstitutionPage,
         connect: false
     }, {
-        path: routeNames.SubstitutionList,
-        title: 'Substitutionlist',
+        path: routeNames.product,
+        title: 'Product',
         component: SubstitutionList,
         connect: true
     }, {
