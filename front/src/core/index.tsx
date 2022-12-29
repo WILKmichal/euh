@@ -168,6 +168,19 @@ const getUser = async () => {
   }
 };
 
+
+const getProduct = async () => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/product`;
+  try {
+    const data_JSON = await getData(LOGIN_ENDPOINT);
+    return data_JSON;
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+
 export {
   register,
   login,
@@ -177,4 +190,5 @@ export {
   PostSubstitu,
   TestToken,
   getUser,
+  getProduct
 };
