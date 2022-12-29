@@ -13,6 +13,7 @@ from api.utils import pwd_context
 import re
 import jwt
 
+
 def getProductsByCode(code):
     r = requests.get(
         f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text,compared_to_category').json()
@@ -20,7 +21,6 @@ def getProductsByCode(code):
 
 
 def getProductsByCategorie(categorie):
-    print(categorie)
     FinalArray = []
     page = 1
     pagecount = 1
@@ -90,17 +90,16 @@ def users_list(request):
                 response_data['success'] = False
                 response_data['message'] = "bad mail"
                 return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
-            # api_serializer.update(api_serializer,{'password': hashedPassword})
             api_serializer.save()
             print(api_serializer.data['id'])
             token = jwt.encode({'id': api_serializer.data['id'],
-                                    'exp': datetime.datetime.now() + datetime.timedelta(
-                                        days=1)},
-                                   'naruto4life', algorithm='HS256').decode('utf-8')
+                                'exp': datetime.datetime.now() + datetime.timedelta(
+                days=1)},
+                'naruto4life', algorithm='HS256').decode('utf-8')
             response_data = api_serializer.data
             response_data['token'] = token
             response_data['success'] = True
-            response_data['message'] = 'compte crée'            
+            response_data['message'] = 'compte crée'
             return JsonResponse(response_data, status=status.HTTP_201_CREATED)
 
         response_data = {}
@@ -108,6 +107,37 @@ def users_list(request):
         response_data['message'] = api_serializer.errors
         return JsonResponse(data=UserSerializer(response_data).data, status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['POST'])
+def login(request):
+    if request.method == 'POST':
+        user_data = JSONParser().parse(request)
+        try:
+            user = Users.objects.get(mail=user_data['mail'])
+            api_serializer = UserSerializer(user)
+            password = api_serializer.data['password']
+            if pwd_context.verify(user_data["password"], password):
+                token = jwt.encode({'id': api_serializer.data['id'],
+                                            'exp': datetime.datetime.now() + datetime.timedelta(
+                            days=1)},
+                            'naruto4life', algorithm='HS256').decode('utf-8')
+                response_data = {}
+                response_data['token'] = token
+                response_data['success'] = True
+                response_data['message'] = 'connectez avec success'
+                return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+            else:
+                response_data = {}
+                response_data['success'] = False
+                response_data['message'] = 'mauvais mot de passe'
+                return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
+        except Users.DoesNotExist:
+            response_data = {}
+        response_data['success'] = False
+        response_data['message'] = 'user does not exist'
+        return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
+       
+        
 
 def is_valid_email(email):
     regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
