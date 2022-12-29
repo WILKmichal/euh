@@ -2,18 +2,18 @@ import json
 import requests
 from rest_framework import status
 from django.shortcuts import HttpResponse, render
-from api.models import Users, Categories
+from api.models import Users, Categories, Products
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from api.serializers import UserSerializer, CategorieSerializer
-
+from api.serializers import UserSerializer, CategorieSerializer, ProductSerializer
 
 
 def getProductsByCode(code):
     r = requests.get(
-    f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text,compared_to_category').json()
+        f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text,compared_to_category').json()
     return r
+
 
 def getProductsByCategorie(categorie):
     print(categorie)
@@ -84,6 +84,23 @@ def users_list(request):
             response_data['message'] = 'compte crée'
             return JsonResponse(response_data, status=status.HTTP_201_CREATED)
 
+        response_data = {}
+        response_data['success'] = False
+        response_data['message'] = api_serializer.errors
+        return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def createProduct(request):
+    if request.method == 'POST':
+        product_data = JSONParser().parse(request)
+        api_serializer = ProductSerializer(data=product_data)
+        if api_serializer.is_valid():
+            api_serializer.save()
+            response_data = {}
+            response_data = api_serializer.data
+            response_data['success'] = True
+            return JsonResponse(response_data, status=status.HTTP_201_CREATED)
         response_data = {}
         response_data['success'] = False
         response_data['message'] = api_serializer.errors
