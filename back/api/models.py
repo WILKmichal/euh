@@ -27,18 +27,18 @@ class Products(models.Model):
     brands = models.CharField(
         max_length=70, blank=False, default='', unique=False)
         
-    keywords = models.CharField(max_length=200, blank=False,
+    keywords = models.CharField(max_length=2000, blank=False,
                                 default='', unique=False)
     categories_tags = models.CharField(
-        max_length=200, blank=False, default='', unique=False)
+        max_length=2000, blank=False, default='', unique=False)
 
-    countries = models.CharField(max_length=200, blank=False,
+    countries = models.CharField(max_length=2000, blank=False,
                                  default='', unique=False)
     image_url = models.CharField(
         max_length=200, blank=False, default='', unique=False)
 
     ingredients_text = models.CharField(
-        max_length=200, blank=False, default='', unique=False)
+        max_length=2000, blank=False, default='', unique=False)
 
     user_id = models.CharField(
         max_length=200, blank=False, default='', unique=False)
