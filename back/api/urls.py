@@ -3,6 +3,7 @@ from api import views
 
 urlpatterns = [
     re_path(r'^api/users$', views.users_list),
+    re_path(r'^api/register$', views.register),
     re_path(r'^api/login$', views.login),
     re_path(r'^api/categories$', views.categories_list),
     re_path(r'^api/products$', views.createProduct),
