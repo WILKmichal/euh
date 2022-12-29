@@ -5,6 +5,7 @@ import FoodsPage from './Page/Foods';
 import LoginPage from './Page/Login';
 import RegisterPage from './Page/Register';
 import SubstitutionPage from './Page/Substitution';
+import SubstitutionList from './Page/SubstitutionList';
 
 
 export interface RouteType {
@@ -21,10 +22,9 @@ export const routeNames = {
     register: '/register',
     login: '/',
     categorie: '/categorie',
-    foods:'/foods/:id',
-    substitution:'/substitution/:code'
-
-
+    foods: '/foods/:id',
+    substitution: '/substitution/:code',
+    SubstitutionList: '/SubstitutionList'
 };
 // 
 const routes: Array<RouteType> = [
@@ -53,6 +53,11 @@ const routes: Array<RouteType> = [
         title: 'Substitution',
         component: SubstitutionPage,
         connect: false
+    }, {
+        path: routeNames.SubstitutionList,
+        title: 'Substitutionlist',
+        component: SubstitutionList,
+        connect: true
     }
 ];
 
@@ -68,7 +73,7 @@ const mappedRoutes = routes.map((route) => {
     return {
         path: route.path,
         component: wrappedComponent,
-        connect:  route.connect,
+        connect: route.connect,
         title: route.title,
 
     };

@@ -20,16 +20,16 @@ const Header: React.FC = () => {
               id="responsive-navbar-nav"
               className="justify-content-end"
             >
-              {routes.map((route: any, index: number) =>
-                route.connect === true ? (
-                  <Nav key={"route-key-" + index} className="me-auto">
-                    <Nav.Link href={`${route.path}`}>{route.title}</Nav.Link>
-                  </Nav>
-                ) : (
-                  ""
-                )
-              )}
-              <div></div>
+              <Nav className="me-auto">
+                {routes.map((route: any, index: number) =>
+                  route.connect === true ? (
+                    <Nav.Link  key={"route-key-" + index} href={`${route.path}`}>{route.title}</Nav.Link>
+                  ) : (
+                    ""
+                  )
+                )}
+              </Nav>
+
               <Nav.Link>déconnexion</Nav.Link>
             </Navbar.Collapse>
           </Container>
