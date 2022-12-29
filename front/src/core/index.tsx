@@ -89,9 +89,9 @@ const getCategory = async () => {
 };
 
 const getFoods = async (data: any) => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/foods`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/productByCatego/${data.category}`;
   try {
-    const data_JSON = await postData(LOGIN_ENDPOINT, data);
+    const data_JSON =  await getData(LOGIN_ENDPOINT);
     return data_JSON;
   } catch (e) {
     console.log(e);
@@ -99,4 +99,36 @@ const getFoods = async (data: any) => {
   }
 };
 
-export { register, login, getCategory, getFoods };
+
+const getFoodByCode = async (data: any) => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/productByCode/${data.code}`;
+  try {
+    const data_JSON =  await getData(LOGIN_ENDPOINT);
+    return data_JSON;
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+
+const PostSubstitu = async (data: any, redirection?: any) => {
+  const LOGIN_ENDPOINT = `${SERVER_URL}/products`;
+  try {
+    const method = "POST";
+    const data_JSON = await postData(LOGIN_ENDPOINT, data, method);
+    if (data_JSON.success === true) {
+      // localStorage.setItem("access_token", data_JSON.token);
+      // window.location.href = "/home";
+      // return data_JSON;
+      return { success: true, message: "substitu créé" };
+    } else  {
+      return { success: false, message: "Un de vos champs n'est pas bon" };
+    }
+  } catch (e) {
+    console.log(e);
+    return { success: false, message: "probleme pour joindre l'api" };
+  }
+};
+
+export { register, login, getCategory, getFoods,getFoodByCode,PostSubstitu };

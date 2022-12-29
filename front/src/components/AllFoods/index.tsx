@@ -15,7 +15,7 @@ const AllFoods = () => {
   // };
 
   const [inputText, setInputText] = useState("");
-  const [Foods, setFoods] = useState([]);
+  const [Foods, setFoods] = useState<any>([]);
   let inputHandler = (e: any) => {
     //convert input text to lower case
     var lowerCase = e.target.value.toLowerCase();
@@ -23,18 +23,28 @@ const AllFoods = () => {
   };
 
   const params = useParams();
-  
-  const fetchgetFoods= async () => {
-    try {
 
-      const data={category: params.id}
-    
-      const infoFoods= await getFoods(data);
+  const fetchgetFoods = async () => {
+    try {
+      const data = { category: params.id };
+
+      const infoFoods = await getFoods(data);
       if (infoFoods.success === true) {
         setFoods(infoFoods);
       } else {
-        // console.log("error");
-        // console.log(infoCategory);
+        const product: any[] = [];
+        for (let index = 0; index < infoFoods.length; index++) {
+          for (let i = 0; i < infoFoods[index].length; i++) {
+            if (
+              infoFoods[index][i].brands !== undefined &&
+              infoFoods[index][i].code !== undefined
+            ) {
+              product.push(infoFoods[index][i]);
+            }
+          }
+        }
+
+        setFoods(product);
       }
     } catch (err) {
       console.log(err);
@@ -70,4 +80,3 @@ const AllFoods = () => {
 };
 
 export default AllFoods;
-

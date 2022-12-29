@@ -22,7 +22,7 @@ export const routeNames = {
     login: '/',
     categorie: '/categorie',
     foods:'/foods/:id',
-    substitution:'/substitution/:food'
+    substitution:'/substitution/:code'
 
 
 };

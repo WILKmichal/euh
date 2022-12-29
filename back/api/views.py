@@ -2,14 +2,22 @@ import json
 import requests
 from rest_framework import status
 from django.shortcuts import HttpResponse, render
-from api.models import Users, Categories
+from api.models import Users, Categories, Products
+from django.contrib.auth.models import User
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
-from api.serializers import UserSerializer, CategorieSerializer
+from api.serializers import UserSerializer, CategorieSerializer, ProductSerializer
+
+
+def getProductsByCode(code):
+    r = requests.get(
+        f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text,compared_to_category').json()
+    return r
 
 
 def getProductsByCategorie(categorie):
+    print(categorie)
     FinalArray = []
     page = 1
     pagecount = 1
@@ -27,6 +35,14 @@ def getProductsByCategorie(categorie):
 def products_by_categorie(request, pk):
     if request.method == 'GET':
         result = getProductsByCategorie(pk)
+        return JsonResponse(result, status=status.HTTP_201_CREATED, safe=False)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def products_by_code(request, pk):
+    if request.method == 'GET':
+        result = getProductsByCode(pk)
+        result['success'] = True
         return JsonResponse(result, status=status.HTTP_201_CREATED, safe=False)
 
 
@@ -52,7 +68,7 @@ def categories_list(request):
 @api_view(['GET', 'POST', 'DELETE'])
 def users_list(request):
     if request.method == 'GET':
-        users = Users.objects.all()
+        users = User.objects.all()
         title = request.GET.get('mail', None)
         if title is not None:
             users = users.filter(title__icontains=title)
@@ -85,13 +101,17 @@ def users_list(request):
         return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
-def is_valid_email(email):
-    regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    if re.match(regex, email):
-        return True
-    else:
-        return False
-
-def hash_password(password):
-    password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    return password_hash
+@api_view(['POST'])
+def createProduct(request):
+    if request.method == 'POST':
+        product_data = JSONParser().parse(request)
+        api_serializer = ProductSerializer(data=product_data)
+        if api_serializer.is_valid():
+            api_serializer.save()
+            response_data = api_serializer.data
+            response_data['success'] = True
+            return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+        response_data = {}
+        response_data['success'] = False
+        response_data['message'] = api_serializer.errors
+        return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
