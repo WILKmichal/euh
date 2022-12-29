@@ -3,6 +3,7 @@ import withPageTitle from './components/PageTitles';
 import CategoriePage from './Page/Categorie';
 import FoodsPage from './Page/Foods';
 import LoginPage from './Page/Login';
+import Profil from './Page/profil';
 import RegisterPage from './Page/Register';
 import SubstitutionPage from './Page/Substitution';
 import SubstitutionList from './Page/SubstitutionList';
@@ -24,7 +25,8 @@ export const routeNames = {
     categorie: '/categorie',
     foods: '/foods/:id',
     substitution: '/substitution/:code',
-    SubstitutionList: '/SubstitutionList'
+    SubstitutionList: '/SubstitutionList',
+    profil: '/profil'
 };
 // 
 const routes: Array<RouteType> = [
@@ -57,6 +59,11 @@ const routes: Array<RouteType> = [
         path: routeNames.SubstitutionList,
         title: 'Substitutionlist',
         component: SubstitutionList,
+        connect: true
+    }, {
+        path: routeNames.profil,
+        title: 'Profil',
+        component: Profil,
         connect: true
     }
 ];

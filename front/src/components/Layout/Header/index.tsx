@@ -7,12 +7,18 @@ import { ReactComponent as FishLogo } from "../../../assets/img/fishsvg.svg";
 import "./index.css";
 
 const Header: React.FC = () => {
+
+
+  const deconnexionUser =()=>{
+    localStorage.removeItem('access_token');
+    window.location.href = "/";
+  }
   return (
     <>
       {localStorage.getItem("access_token") !== null ? (
         <Navbar style={{ background: "#fff" }} collapseOnSelect expand="lg">
           <Container>
-            <Navbar.Brand href="/home">
+            <Navbar.Brand href="/categorie">
               <FishLogo />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -30,7 +36,7 @@ const Header: React.FC = () => {
                 )}
               </Nav>
 
-              <Nav.Link>déconnexion</Nav.Link>
+              <Nav.Link onClick={() =>deconnexionUser()}>déconnexion</Nav.Link>
             </Navbar.Collapse>
           </Container>
         </Navbar>

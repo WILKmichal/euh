@@ -24,7 +24,7 @@ const Login = () => {
 
   const handelLogin = async () => {
     const datas = {
-      email: email,
+      mail: email,
       password: password,
     };
 

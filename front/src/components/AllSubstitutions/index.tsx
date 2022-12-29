@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { getFoods } from "../../core";
+import { getFoods, TestToken } from "../../core";
 import ListAllAllSubstitutions from "./ListAllAllSubstitutions";
 
 const AllSubstitutions = () => {
@@ -51,10 +51,9 @@ const AllSubstitutions = () => {
     }
   };
 
-  const SupprimerSubstitu = async (code : string) => {
+  const SupprimerSubstitu = async (code: string) => {
     try {
       console.log(code);
-      
     } catch (err) {
       console.log(err);
     }
@@ -78,7 +77,6 @@ const AllSubstitutions = () => {
           </Col>
         </Row>
       </Container>
-
       <ListAllAllSubstitutions
         SupprimerSubstitu={SupprimerSubstitu}
         Foods={Foods}
