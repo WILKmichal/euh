@@ -27,7 +27,7 @@ const SelectFood = (props: Props) => {
     (category: string, index: number) => {
       //if no input the return the original
       return (
-        <ListGroup.Item onClick={() => goToAliment(category)}>
+        <ListGroup.Item key={index} onClick={() => goToAliment(category)}>
           {category}
         </ListGroup.Item>
       );
@@ -38,7 +38,7 @@ const SelectFood = (props: Props) => {
     (category: string, index: number) => {
       //if no input the return the original
       return (
-        <ListGroup.Item>
+        <ListGroup.Item key={index}>
           {category}
         </ListGroup.Item>
       );
@@ -73,6 +73,14 @@ const SelectFood = (props: Props) => {
               <Accordion.Body>
                 <ListGroup className="list-group-flush">
                   {filteredDataKey}
+                </ListGroup>
+              </Accordion.Body>
+            </Accordion.Item>
+            <Accordion.Item eventKey="2">
+              <Accordion.Header>magasin</Accordion.Header>
+              <Accordion.Body>
+                <ListGroup className="list-group-flush">
+                  {props.Product.product.stores}
                 </ListGroup>
               </Accordion.Body>
             </Accordion.Item>

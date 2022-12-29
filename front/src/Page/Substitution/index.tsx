@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Toast, ToastContainer } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import SelectFood from "../../components/SelectFood";
 import SelectSubstitue from "../../components/SelectSubstitue";
-import { getFoods, getFoodByCode } from "../../core";
+import { getFoods, getFoodByCode, PostSubstitu } from "../../core";
+import "./index.css";
 
 const SubstitutionPage = (props: any) => {
   const params = useParams();
@@ -21,10 +22,10 @@ const SubstitutionPage = (props: any) => {
       _keywords: [],
       success: "",
     },
-  })
-  
-  const [Substitution, setSubstitution] = useState<any>([{
+  });
 
+  const [Substitution, setSubstitution] = useState<any>([
+    {
       brands: "",
       categories_tags: [],
       code: "",
@@ -33,8 +34,50 @@ const SubstitutionPage = (props: any) => {
       ingredients_text: "",
       stores: "",
       _keywords: [],
-  }])
-  ;
+    },
+  ]);
+
+  const [showNotif, setshowNotif] = useState(false);
+  const [messagePost, setmessagePost] = useState({
+    success: false,
+    message: "",
+  });
+
+  const NewPoduct = async (substitution: string, producsubstitution: any) => {
+    const datas = {
+      sub_code: substitution,
+      code: Product.code,
+      brands: producsubstitution.brands,
+      keywords: producsubstitution._keywords.toString(),
+      categories_tags: producsubstitution.categories_tags.toString(),
+      countries: producsubstitution.countries,
+      image_url: producsubstitution.image_url,
+      ingredients_text: producsubstitution.ingredients_text,
+      user_id: 0,
+    };
+
+    try {
+      const infoPost = await PostSubstitu(datas);
+      if (infoPost.success === true) {
+        setmessagePost({
+          success: infoPost.success,
+          message: infoPost.message,
+        });
+        setshowNotif(true);
+      } else {
+        setmessagePost({
+          success: infoPost.success,
+          message: infoPost.message,
+        });
+        setshowNotif(true);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log(datas);
+  };
+
   const fetchgetFoods = async () => {
     try {
       const data = { code: params.code };
@@ -43,8 +86,8 @@ const SubstitutionPage = (props: any) => {
       if (infoFoods.success === true) {
         // setFoods(infoFoods);
         setProducct(infoFoods);
-        
-        fetchgetSubstitut(infoFoods.product.compared_to_category)
+
+        fetchgetSubstitut(infoFoods.product.compared_to_category);
       } else {
         // console.log("non");
       }
@@ -60,7 +103,7 @@ const SubstitutionPage = (props: any) => {
       if (infoFoods.success === true) {
         // setFoods(infoFoods);
         console.log(infoFoods);
-      }else {
+      } else {
         const product: any[] = [];
         for (let index = 0; index < infoFoods.length; index++) {
           for (let i = 0; i < infoFoods[index].length; i++) {
@@ -82,13 +125,28 @@ const SubstitutionPage = (props: any) => {
 
   return (
     <>
+      <ToastContainer className="notif">
+        <Toast
+          show={showNotif}
+          onClose={() => setshowNotif(false)}
+          bg={messagePost.success ? "success" : "danger"}
+        >
+          <Toast.Header>
+            <strong className="me-auto">substitution du produit {Product.product.brands}</strong>
+          </Toast.Header>
+          <Toast.Body>{messagePost.message}</Toast.Body>
+        </Toast>
+      </ToastContainer>
       <Container style={{ marginTop: "5%" }}>
         <Row>
           <Col>
             <SelectFood Product={Product} fetchgetFoods={fetchgetFoods} />
           </Col>
           <Col>
-            <SelectSubstitue Substitution={Substitution} />
+            <SelectSubstitue
+              NewPoduct={NewPoduct}
+              Substitution={Substitution}
+            />
           </Col>
         </Row>
       </Container>
