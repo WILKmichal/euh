@@ -17,7 +17,6 @@ from api.serializers import UserSerializer, CategorieSerializer, ProductSerializ
 from rest_framework import permissions
 
 
-
 def getProductsByCode(code):
     r = requests.get(
         f'https://world.openfoodfacts.org/api/v2/product/{code}&fields=code,_keywords,brands,categories_tags,countries,name_fr,image_url,stores,ingredients_text,compared_to_category').json()
@@ -55,9 +54,21 @@ def products_by_user_id(request):
         print(data)
         products = Products.objects.filter(user_id=data['id'])
         api_serializer = ProductSerializer(products, many=True)
-        return JsonResponse(api_serializer.data,status=status.HTTP_200_OK, safe=False)
+        return JsonResponse(api_serializer.data, status=status.HTTP_200_OK, safe=False)
 
 
+@api_view(['DELETE'])
+@permission_classes([AuthenticatedOnly])
+def delete_product(request, pk):
+    if request.method == 'DELETE':
+        try:
+            products = Products.objects.filter(code=pk)[0]
+            products.delete()
+            api_serializer = 'product deleted'
+            return JsonResponse(api_serializer, status=status.HTTP_200_OK, safe=False)
+        except Products.DoesNotExist:
+            api_serializer = 'product existe pas'
+            return JsonResponse(api_serializer, status=status.HTTP_200_OK, safe=False)
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -93,49 +104,50 @@ def categories_list(request):
 @api_view(['POST'])
 def register(request):
     if request.method == 'POST':
-            user_data = JSONParser().parse(request)
-            try:
-                user = Users.objects.get(mail=user_data['mail'])
-                response_data = {}
-                response_data['success'] = False
-                response_data['message'] = 'user already exists you fool'
-                return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
-            except Users.DoesNotExist:
-                user_data['password'] = pwd_context.hash(
-                    user_data["password"])
-                api_serializer = UserSerializer(data=user_data)
-                if api_serializer.is_valid():
-                    data = api_serializer.validated_data
-                    mail = data['mail']
-                    if not is_valid_email(mail):
-                        response_data = {}
-                        response_data['success'] = False
-                        response_data['message'] = "bad mail"
-                        return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
-                    api_serializer.save()
-                    print(api_serializer.data['id'])
-                    token = jwt.encode({'id': api_serializer.data['id'],
-                                        'exp': datetime.datetime.now() + datetime.timedelta(
-                        days=1)},
-                        'naruto4life', algorithm='HS256').decode('utf-8')
-                    response_data = api_serializer.data
-                    response_data['token'] = token
-                    response_data['success'] = True
-                    response_data['message'] = 'compte crée'
-                    return JsonResponse(response_data, status=status.HTTP_201_CREATED)
+        user_data = JSONParser().parse(request)
+        try:
+            user = Users.objects.get(mail=user_data['mail'])
+            response_data = {}
+            response_data['success'] = False
+            response_data['message'] = 'user already exists you fool'
+            return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
+        except Users.DoesNotExist:
+            user_data['password'] = pwd_context.hash(
+                user_data["password"])
+            api_serializer = UserSerializer(data=user_data)
+            if api_serializer.is_valid():
+                data = api_serializer.validated_data
+                mail = data['mail']
+                if not is_valid_email(mail):
+                    response_data = {}
+                    response_data['success'] = False
+                    response_data['message'] = "bad mail"
+                    return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
+                api_serializer.save()
+                print(api_serializer.data['id'])
+                token = jwt.encode({'id': api_serializer.data['id'],
+                                    'exp': datetime.datetime.now() + datetime.timedelta(
+                    days=1)},
+                    'naruto4life', algorithm='HS256').decode('utf-8')
+                response_data = api_serializer.data
+                response_data['token'] = token
+                response_data['success'] = True
+                response_data['message'] = 'compte crée'
+                return JsonResponse(response_data, status=status.HTTP_201_CREATED)
 
 
 @api_view(['GET'])
 @permission_classes([AuthenticatedOnly])
 def users_list(request):
-        if request.method == 'GET':
-            users = Users.objects.all()
-            title = request.GET.get('mail', None)
-            if title is not None:
-                users = users.filter(title__icontains=title)
+    if request.method == 'GET':
+        users = Users.objects.all()
+        title = request.GET.get('mail', None)
+        if title is not None:
+            users = users.filter(title__icontains=title)
 
-            api_serializer = UserSerializer(users, many=True)
-            return JsonResponse(api_serializer.data, safe=False)
+        api_serializer = UserSerializer(users, many=True)
+        return JsonResponse(api_serializer.data, safe=False)
+
 
 @api_view(['POST'])
 def login(request):
