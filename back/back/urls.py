@@ -7,7 +7,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
 ]
 
-
 urlpatterns = [
     re_path(r'^', include('api.urls')),
 ]

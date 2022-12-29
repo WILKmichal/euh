@@ -1,3 +1,4 @@
+import datetime
 import json
 import requests
 from rest_framework import status
@@ -8,7 +9,9 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
 from api.serializers import UserSerializer, CategorieSerializer, ProductSerializer
-
+from api.utils import pwd_context
+import re
+import jwt
 
 def getProductsByCode(code):
     r = requests.get(
@@ -68,7 +71,7 @@ def categories_list(request):
 @api_view(['GET', 'POST', 'DELETE'])
 def users_list(request):
     if request.method == 'GET':
-        users = User.objects.all()
+        users = Users.objects.all()
         title = request.GET.get('mail', None)
         if title is not None:
             users = users.filter(title__icontains=title)
@@ -77,28 +80,46 @@ def users_list(request):
         return JsonResponse(api_serializer.data, safe=False)
     elif request.method == 'POST':
         user_data = JSONParser().parse(request)
+        user_data['password'] = pwd_context.hash(user_data["password"])
         api_serializer = UserSerializer(data=user_data)
-
         if api_serializer.is_valid():
             data = api_serializer.validated_data
             mail = data['mail']
-            if  not is_valid_email(mail):
-                    response_data = {}
-                    response_data['success'] = False
-                    response_data['message'] = "bad mail"
-                    return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
-            hashedPassword = hash_password(data["password"])
+            if not is_valid_email(mail):
+                response_data = {}
+                response_data['success'] = False
+                response_data['message'] = "bad mail"
+                return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
             # api_serializer.update(api_serializer,{'password': hashedPassword})
             api_serializer.save()
-            response_data = {}
+            print(api_serializer.data['id'])
+            token = jwt.encode({'id': api_serializer.data['id'],
+                                    'exp': datetime.datetime.now() + datetime.timedelta(
+                                        days=1)},
+                                   'naruto4life', algorithm='HS256').decode('utf-8')
+            response_data = api_serializer.data
+            response_data['token'] = token
             response_data['success'] = True
-            response_data['message'] = 'compte crée'
+            response_data['message'] = 'compte crée'            
             return JsonResponse(response_data, status=status.HTTP_201_CREATED)
 
         response_data = {}
         response_data['success'] = False
         response_data['message'] = api_serializer.errors
-        return JsonResponse(response_data, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(data=UserSerializer(response_data).data, status=status.HTTP_400_BAD_REQUEST)
+
+
+def is_valid_email(email):
+    regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    if re.match(regex, email):
+        return True
+    else:
+        return False
+
+
+def hash_password(password):
+    password_hash = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    return password_hash
 
 
 @api_view(['POST'])
