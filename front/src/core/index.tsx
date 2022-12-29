@@ -12,7 +12,12 @@ const postData = async (url: any, data?: any, method?: any) => {
   });
   const json = await rep.json();
 
-  return json;
+  if (rep.status === 403) {
+    localStorage.removeItem("access_token");
+    window.location.href = "/";
+  } else {
+    return json;
+  }
 };
 
 const postDataNoToken = async (url: any, data?: any, method?: any) => {
@@ -35,7 +40,13 @@ const getData = async (url: any, method?: any) => {
     },
   });
   const json = await rep.json();
-  return json;
+
+  if (rep.status === 403) {
+    localStorage.removeItem("access_token");
+    window.location.href = "/";
+  } else {
+    return json;
+  }
 };
 
 const register = async (data: any, redirection?: any) => {
@@ -145,12 +156,12 @@ const TestToken = async () => {
 const getUser = async () => {
   try {
     const token: any = localStorage.getItem("access_token");
-    var decoded : any = jwt_decode(token);
+    var decoded: any = jwt_decode(token);
     const LOGIN_ENDPOINT = `${SERVER_URL}/user/${decoded.id}`;
     const data_JSON = await getData(LOGIN_ENDPOINT);
 
     console.log(data_JSON);
-    return data_JSON
+    return data_JSON;
   } catch (e) {
     console.log(e);
     return { success: false, message: "probleme pour joindre l'api" };
@@ -165,5 +176,5 @@ export {
   getFoodByCode,
   PostSubstitu,
   TestToken,
-  getUser
+  getUser,
 };

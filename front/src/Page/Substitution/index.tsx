@@ -5,6 +5,7 @@ import SelectFood from "../../components/SelectFood";
 import SelectSubstitue from "../../components/SelectSubstitue";
 import { getFoods, getFoodByCode, PostSubstitu } from "../../core";
 import "./index.css";
+import jwt_decode from "jwt-decode";
 
 const SubstitutionPage = (props: any) => {
   const params = useParams();
@@ -44,6 +45,9 @@ const SubstitutionPage = (props: any) => {
   });
 
   const NewPoduct = async (substitution: string, producsubstitution: any) => {
+    const token: any = localStorage.getItem("access_token");
+    var decoded : any = jwt_decode(token);
+
     const datas = {
       sub_code: Product.code,
       code: substitution,
@@ -53,7 +57,7 @@ const SubstitutionPage = (props: any) => {
       countries: producsubstitution.countries,
       image_url: producsubstitution.image_url,
       ingredients_text: producsubstitution.ingredients_text,
-      user_id: 0,
+      user_id: decoded.id,
     };
 
     try {
@@ -132,7 +136,9 @@ const SubstitutionPage = (props: any) => {
           bg={messagePost.success ? "success" : "danger"}
         >
           <Toast.Header>
-            <strong className="me-auto">substitution du produit {Product.product.brands}</strong>
+            <strong className="me-auto">
+              substitution du produit {Product.product.brands}
+            </strong>
           </Toast.Header>
           <Toast.Body>{messagePost.message}</Toast.Body>
         </Toast>
