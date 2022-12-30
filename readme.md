@@ -31,5 +31,5 @@ Une fois que vous avez exécuté ces commandes, votre application React devrait 
 Ouvrez un terminal et naviguez jusqu'au répertoire de notre application Django ```./back```.
 installé les dépendances de l'application en exécutant la commande ```pip install -r requirements.txt``` . Cette commande installera toutes les bibliothèques Python nécessaires pour votre application.
 Exécutez la commande ```python manage.py migrate``` pour appliquer toutes les migrations de base de données nécessaires à votre application.
-Exécutez la commande ```python manage.py runserver``` pour lancer le serveur de développement de Django.
+Exécutez la commande ```python manage.py runserver 8081``` pour lancer le serveur de développement de Django.
 
