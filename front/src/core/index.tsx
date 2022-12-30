@@ -50,7 +50,7 @@ const getData = async (url: any, method?: any) => {
 };
 
 const register = async (data: any, redirection?: any) => {
-  const LOGIN_ENDPOINT = `${SERVER_URL}/users`;
+  const LOGIN_ENDPOINT = `${SERVER_URL}/register`;
   try {
     const method = "POST";
     const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
