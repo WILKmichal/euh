@@ -55,13 +55,10 @@ const register = async (data: any, redirection?: any) => {
     const method = "POST";
     const data_JSON = await postDataNoToken(LOGIN_ENDPOINT, data, method);
 
-    console.log(data_JSON);
-
     if (data_JSON.success === true) {
       localStorage.setItem("access_token", data_JSON.token);
       return { success: true, message: "utilisateur créé" };
     } else if (data_JSON.success === false) {
-      console.log(data_JSON);
 
       return { success: false, message: "Un de vos champs n'est pas bon" };
     }
@@ -141,18 +138,6 @@ const PostSubstitu = async (data: any, redirection?: any) => {
   }
 };
 
-const TestToken = async () => {
-  try {
-    const token: any = localStorage.getItem("access_token");
-    var decoded = jwt_decode(token);
-
-    console.log(decoded);
-  } catch (e) {
-    console.log(e);
-    return { success: false, message: "probleme pour joindre l'api" };
-  }
-};
-
 const getUser = async () => {
   try {
     const token: any = localStorage.getItem("access_token");
@@ -160,7 +145,6 @@ const getUser = async () => {
     const LOGIN_ENDPOINT = `${SERVER_URL}/user/${decoded.id}`;
     const data_JSON = await getData(LOGIN_ENDPOINT);
 
-    console.log(data_JSON);
     return data_JSON;
   } catch (e) {
     console.log(e);
@@ -207,7 +191,6 @@ export {
   getFoods,
   getFoodByCode,
   PostSubstitu,
-  TestToken,
   getUser,
   getProduct
 };

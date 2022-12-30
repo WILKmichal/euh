@@ -32,7 +32,6 @@ const Login = () => {
 
     setshowAlert(true);
   };
-  console.log(error);
 
   function goRegister() {
     window.location.href = "/register";

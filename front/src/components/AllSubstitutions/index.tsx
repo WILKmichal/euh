@@ -1,24 +1,27 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row } from "react-bootstrap";
-import { DeleteProduct, getFoodByCode, getProduct } from "../../core";
+import { getFoodByCode, getProduct } from "../../core";
 import ListAllAllSubstitutions from "./ListAllAllSubstitutions";
 import ModalCompared from "./ModalCompared";
+import ModalSuppr from "./ModalSuppr";
 
 const AllSubstitutions = () => {
   const [inputText, setInputText] = useState("");
   const [show, setShow] = useState(false);
 
+  const [showAlert, setShowAlert] = useState(false);
+
   const [Product, setProduct] = useState<any>({
     code: "",
     product: {
       brands: "",
-      categories_tags: 'e,e,e,e',
+      categories_tags: "e,e,e,e",
       code: "",
       countries: "",
       image_url: "",
       ingredients_text: "",
       stores: "",
-      keywords: 'test,test',
+      keywords: "test,test",
       success: "",
     },
     status: 0,
@@ -62,12 +65,10 @@ const AllSubstitutions = () => {
     }
   };
 
-  const DeleteProductbyCode = async (code: string) => {
-    const infoFoods = await DeleteProduct(code);
+  const DeleteProductbyCode = async (product: any) => {
 
-    if (infoFoods.success === true) {
-      fetchgetFoods();
-    }
+    setShowAlert(true);
+    setProduct(product);
   };
 
   const fetchgetFoodbyCode = async (code: string) => {
@@ -78,16 +79,27 @@ const AllSubstitutions = () => {
         // setFoods(infoFoods);
         setProductSub(infoFoods);
       } else {
-        // console.log("non");
       }
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   };
 
   return (
     <>
-      <ModalCompared ProductSub={ProductSub} Product={Product} show={show} setShow={setShow} />
+      <ModalCompared
+        ProductSub={ProductSub}
+        Product={Product}
+        show={show}
+        setShow={setShow}
+      />
+
+      <ModalSuppr
+        Product={Product}
+        showAlert={showAlert}
+        setShowAlert={setShowAlert}
+        fetchgetFoods={fetchgetFoods}
+      />
       <Container>
         <Row>
           <Col>

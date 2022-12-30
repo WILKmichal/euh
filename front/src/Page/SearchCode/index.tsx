@@ -34,13 +34,11 @@ const SearchCode = () => {
 
       const infoFoods = await getFoodByCode(data);
       if (infoFoods.success === true) {
-        // setFoods(infoFoods);
         setProducct(infoFoods);
       } else {
-        // console.log("non");
       }
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   };
 
@@ -89,6 +87,7 @@ const SearchCode = () => {
                 <Row xs={1} sm={2}>
                   <Col md={4}>
                     <img
+                      alt={'picture of '+ Product.product.brands}
                       className="img"
                       src={
                         Product.product.image_url === undefined ||
@@ -102,7 +101,12 @@ const SearchCode = () => {
                     <Card.Title> {Product.product.brands}</Card.Title>
                     <Card.Text>{Product.product.ingredients_text}</Card.Text>
                     <p style={{ textAlign: "right" }}>
-                      <Button onClick={() => gotSubstitution(Product.product.code)} variant="primary">details</Button>
+                      <Button
+                        onClick={() => gotSubstitution(Product.product.code)}
+                        variant="primary"
+                      >
+                        details
+                      </Button>
                     </p>
                   </Col>
                 </Row>

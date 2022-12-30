@@ -26,9 +26,10 @@ export const routeNames = {
     categorie: '/categorie',
     foods: '/foods/:id',
     substitution: '/substitution/:code',
+    searchCode: '/searchCode',
+
     product: '/SubstitutionList',
     profil: '/profil',
-    searchCode : '/searchCode'
 };
 // 
 const routes: Array<RouteType> = [
@@ -58,6 +59,11 @@ const routes: Array<RouteType> = [
         component: SubstitutionPage,
         connect: false
     }, {
+        path: routeNames.searchCode,
+        title: 'SearchCode',
+        component: SearchCode,
+        connect: true
+    }, {
         path: routeNames.product,
         title: 'Product',
         component: SubstitutionList,
@@ -66,11 +72,6 @@ const routes: Array<RouteType> = [
         path: routeNames.profil,
         title: 'Profil',
         component: Profil,
-        connect: true
-    },  {
-        path: routeNames.searchCode,
-        title: 'SearchCode',
-        component: SearchCode,
         connect: true
     }
 ];

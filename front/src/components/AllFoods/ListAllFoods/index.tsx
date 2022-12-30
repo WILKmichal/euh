@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
-import SubstitutionPage from "../../../Page/Substitution";
 type Props = {
   inputText: String;
   fetchgetCategory: Function;
@@ -15,8 +14,6 @@ function ListAllCategorie(props: Props) {
   React.useEffect(() => {
     return () => latestProps.current.fetchgetCategory();
   }, []);
-
-  console.log(props.Foods);
 
   //create a new array by filtering the original array
   const filteredData = props.Foods.filter((el: any) => {

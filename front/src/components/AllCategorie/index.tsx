@@ -27,8 +27,6 @@ const AllCategorie = () => {
       if (infoCategory.success === true) {
         setCategory(infoCategory);
       } else {
-        console.log("error");
-        // console.log(infoCategory);
         setCategory(infoCategory);
       }
     } catch (err) {
