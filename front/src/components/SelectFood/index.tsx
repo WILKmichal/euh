@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion, Card, Container, ListGroup, Row } from "react-bootstrap";
+import { Accordion, Card, Container, ListGroup } from "react-bootstrap";
 
 import "./index.css";
 
@@ -90,8 +90,7 @@ const SelectFood = (props: Props) => {
             <Accordion.Item eventKey="0"></Accordion.Item>
           </Accordion>
           <Card.Body>
-            <Card.Link href="#">Card Link</Card.Link>
-            <Card.Link href="#">Another Link</Card.Link>
+            <Card.Link   target="blank" href={`https://world.openfoodfacts.org/product/${props.Product.product.code}`}>Open Food</Card.Link>
           </Card.Body>
         </Card>
       </Container>

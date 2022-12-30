@@ -48,6 +48,7 @@ const SelectSubstitue = (props: Props) => {
                 <Col>
                   <img
                     className="img"
+                    alt={'picture of '+ category.brands}
                     src={
                       category.image_url === undefined
                         ? "https://fr.openfoodfacts.org/images/icons/dist/packaging.svg"

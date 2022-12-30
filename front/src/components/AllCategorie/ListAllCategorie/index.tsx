@@ -9,7 +9,6 @@ type Props = {
   Category: any;
 };
 function ListAllCategorie(props: Props) {
-  console.log(props.Category);
 
   const latestProps = React.useRef(props);
   React.useEffect(() => {

@@ -30,6 +30,8 @@ function ListAllAllSubstitutions(props: Props) {
           el.brands.toLowerCase().includes(props.inputText) ||
           el.code.toLowerCase().includes(props.inputText)
         );
+      }else{
+        return '';
       }
     }
   });
@@ -87,7 +89,7 @@ function ListAllAllSubstitutions(props: Props) {
                     </Button>{" "}
                     <Button
                       variant="outline-danger"
-                      onClick={() => props.DeleteProductbyCode(product.code)}
+                      onClick={() => props.DeleteProductbyCode(product)}
                     >
                       Supprmer
                     </Button>

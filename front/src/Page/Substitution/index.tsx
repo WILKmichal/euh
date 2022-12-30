@@ -79,7 +79,6 @@ const SubstitutionPage = (props: any) => {
       console.log(err);
     }
 
-    console.log(datas);
   };
 
   const fetchgetFoods = async () => {
@@ -93,10 +92,10 @@ const SubstitutionPage = (props: any) => {
 
         fetchgetSubstitut(infoFoods.product.compared_to_category);
       } else {
-        // console.log("non");
+
       }
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   };
 
@@ -106,7 +105,6 @@ const SubstitutionPage = (props: any) => {
       const infoFoods = await getFoods(data);
       if (infoFoods.success === true) {
         // setFoods(infoFoods);
-        console.log(infoFoods);
       } else {
         const product: any[] = [];
         for (let index = 0; index < infoFoods.length; index++) {
@@ -123,7 +121,7 @@ const SubstitutionPage = (props: any) => {
         setSubstitution(product);
       }
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   };
 

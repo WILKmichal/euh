@@ -33,8 +33,6 @@ const Register = () => {
 
     setError(await register(datas));
 
-    console.log(datas);
-
     setshowAlert(true);
   };
   console.log(error);
